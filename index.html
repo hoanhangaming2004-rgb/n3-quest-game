@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Bài tập của Lan · grammar-speech-fix v4 -->
 <html lang="vi">
 <head>
 <meta charset="utf-8">
@@ -46,7 +47,7 @@ button:focus-visible,select:focus-visible{outline:3px solid color-mix(in srgb,va
     <section class="card hero">
       <span class="eyebrow">Mục tiêu hôm nay</span>
       <h1>Lan học N3 một chút mỗi ngày 🌷</h1>
-      <p>Làm bài ngắn, nghe câu tiếng Nhật sau mỗi đáp án và ôn lại đúng những câu còn yếu.</p>
+      <p>Làm bài ngắn, tự nghe từ hoặc mẫu ngữ pháp sau mỗi đáp án và ôn lại đúng những câu còn yếu.</p>
       <div class="goal">
         <div class="goalhead"><span id="dailyText">0 / 10 câu hôm nay</span><strong id="dailyPct">0%</strong></div>
         <div class="progress"><i id="dailyBar" style="width:0%"></i></div>
@@ -65,7 +66,7 @@ button:focus-visible,select:focus-visible{outline:3px solid color-mix(in srgb,va
     <div class="modegrid">
       <button class="mode" data-go="practice"><span class="ico">✏️</span><b>Luyện tập</b><small>Chọn phần và số câu muốn làm.</small><span class="meta">TÙY CHỈNH</span></button>
       <button class="mode" id="wrongMode"><span class="ico">🧠</span><b>Ôn câu sai</b><small>Ưu tiên các câu Lan từng trả lời sai.</small><span class="meta" id="wrongMeta">0 CÂU</span></button>
-      <button class="mode" id="listenMode"><span class="ico">🔊</span><b>Nghe & nhớ</b><small>Chọn đáp án xong sẽ tự đọc từ đang học. Có thể bấm nghe câu ví dụ khi cần.</small><span class="meta">TỰ ĐỌC TỪ</span></button>
+      <button class="mode" id="listenMode"><span class="ico">🔊</span><b>Nghe & nhớ</b><small>Chọn đáp án xong sẽ tự đọc từ hoặc mẫu ngữ pháp đang học. Có thể bấm nghe câu ví dụ khi cần.</small><span class="meta">TỰ ĐỌC TỪ / MẪU</span></button>
       <button class="mode" data-go="progress"><span class="ico">📊</span><b>Tiến độ</b><small>Xem độ chính xác theo từng phần.</small><span class="meta">THỐNG KÊ</span></button>
     </div>
   </main>
@@ -238,7 +239,7 @@ function startSession(pool,len){
 function renderQuestion(){
   const q=session[pos];answered=false;opts=shuffle(q.a.map((text,i)=>({text,correct:i===q.c,orig:i})));
   $('typeTag').textContent=q.t||'N3';$('counter').textContent=`${pos+1}/${session.length}`;$('quizBar').style.width=(pos/session.length*100)+'%';$('question').textContent=q.q;$('reading').textContent=q.r||'';$('reading').classList.add('hide');$('hintBtn').textContent='あ Hiragana';$('feedback').className='feedback hide';$('feedback').innerHTML='';$('nextBtn').disabled=true;$('nextBtn').textContent=pos===session.length-1?'Xem kết quả':'Câu tiếp theo';
-  lastSpokenText=targetJapaneseWord(q);
+  lastSpokenText=learningJapaneseTarget(q);
   const box=$('answers');box.innerHTML='';opts.forEach((o,i)=>{const b=document.createElement('button');b.className='answer';b.dataset.i=i;b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span>${escapeHtml(o.text)}`;b.onclick=choose;box.appendChild(b)});updateSessionStats();$('speakBtn').disabled=!canSpeakText(exampleJapanese(q));
 }
 function updateSessionStats(){const done=pos+(answered?1:0);$('sessionAccuracy').textContent=(done?Math.round(correct/done*100):0)+'%';$('combo').textContent=combo+' 🔥';$('quizScore').textContent=score+' điểm';$('sessionXp').textContent='+'+sessionXp}
@@ -248,7 +249,7 @@ function choose(e){
   if(ok){combo++;correct++;maxCombo=Math.max(maxCombo,combo);const gain=10+Math.min(combo-1,5)*2;score+=gain;sessionXp+=5;showFeedback(true,'Chính xác! +'+gain+' điểm',q.e);delete state.wrong[q.id]}
   else{combo=0;e.currentTarget.classList.add('wrong');sessionXp+=2;wrongNow.push({q,selected:o.text});const old=state.wrong[q.id]||{count:0};state.wrong[q.id]={count:(old.count||0)+1,selected:o.text,at:Date.now()};showFeedback(false,'Chưa đúng · đáp án: '+q.a[q.c],q.e)}
   state.total++;if(ok)state.correct++;state.xp=(state.xp||0)+(ok?5:2);ensureDay();state.daily.done++;if(ok)state.daily.correct++;const s=catStat(q.t||'Khác');s.seen++;if(ok)s.correct++;touchStreak();save();$('quizBar').style.width=((pos+1)/session.length*100)+'%';$('nextBtn').disabled=false;updateSessionStats();
-  lastSpokenText=targetJapaneseWord(q);
+  lastSpokenText=learningJapaneseTarget(q);
   speakJapanese(lastSpokenText); // tự động chỉ đọc từ/cụm từ đang học
 }
 function showFeedback(ok,title,exp){const f=$('feedback');f.className='feedback '+(ok?'ok':'no');f.innerHTML=`<b>${escapeHtml(title)}</b><small>${escapeHtml(exp||'')}</small>`}
@@ -268,6 +269,21 @@ function targetJapaneseWord(q){
   if(token)return cleanJapaneseToken(token[0]);
   if(JP_RE.test(q.r||''))return cleanJapaneseToken(q.r);
   return '';
+}
+function japaneseExpression(text){
+  const parts=String(text||'').match(/[一-龯々〆ヵヶぁ-ゖァ-ヺー]+/g);
+  return parts?parts.join(''):'';
+}
+function learningJapaneseTarget(q){
+  const type=String(q.t||'');
+  // Với câu Ngữ pháp dạng: 彼はゲーム（ ）しています。
+  // phần cần học là đáp án đúng (ví dụ ばかり), không phải "彼はゲーム".
+  if(type.includes('Ngữ pháp')){
+    const correct=Array.isArray(q.a)?q.a[q.c]:'';
+    const grammar=japaneseExpression(correct);
+    if(grammar)return grammar;
+  }
+  return targetJapaneseWord(q);
 }
 function exampleJapanese(q){
   const lines=String(q.e||'').split(/\n+/).map(x=>x.trim()).filter(Boolean);
