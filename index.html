@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Bài tập của Lan · grammar-speech-fix v5 -->
 <!-- Bài tập của Lan · grammar-speech-fix v4 -->
 <html lang="vi">
 <head>
@@ -66,7 +67,7 @@ button:focus-visible,select:focus-visible{outline:3px solid color-mix(in srgb,va
     <div class="modegrid">
       <button class="mode" data-go="practice"><span class="ico">✏️</span><b>Luyện tập</b><small>Chọn phần và số câu muốn làm.</small><span class="meta">TÙY CHỈNH</span></button>
       <button class="mode" id="wrongMode"><span class="ico">🧠</span><b>Ôn câu sai</b><small>Ưu tiên các câu Lan từng trả lời sai.</small><span class="meta" id="wrongMeta">0 CÂU</span></button>
-      <button class="mode" id="listenMode"><span class="ico">🔊</span><b>Nghe & nhớ</b><small>Chọn đáp án xong sẽ tự đọc từ hoặc mẫu ngữ pháp đang học. Có thể bấm nghe câu ví dụ khi cần.</small><span class="meta">TỰ ĐỌC TỪ / MẪU</span></button>
+      <button class="mode" id="listenMode"><span class="ico">🔊</span><b>Nghe & nhớ</b><small>Chọn đáp án xong sẽ tự đọc đúng mẫu ngữ pháp đang học. Nút Nghe ví dụ sẽ đọc câu hoàn chỉnh.</small><span class="meta">TỰ ĐỌC TỪ / MẪU</span></button>
       <button class="mode" data-go="progress"><span class="ico">📊</span><b>Tiến độ</b><small>Xem độ chính xác theo từng phần.</small><span class="meta">THỐNG KÊ</span></button>
     </div>
   </main>
@@ -274,20 +275,44 @@ function japaneseExpression(text){
   const parts=String(text||'').match(/[一-龯々〆ヵヶぁ-ゖァ-ヺー]+/g);
   return parts?parts.join(''):'';
 }
+function grammarLearningPattern(q){
+  // Lấy mẫu ngữ pháp chuẩn từ đầu phần giải thích:
+  // "～しかない = ..." -> "しかない"
+  // "～わけではない = ..." -> "わけではない"
+  // "～ことにする = ..." -> "ことにする"
+  const lines=String(q.e||'').split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  const ruleLine=lines.find(line=>JP_RE.test(line)&&!/^→/.test(line));
+  if(ruleLine){
+    const head=ruleLine.split(/[=＝:：]/)[0];
+    const pattern=japaneseExpression(head);
+    if(pattern)return pattern;
+  }
+  const correct=Array.isArray(q.a)?q.a[q.c]:'';
+  return japaneseExpression(correct);
+}
 function learningJapaneseTarget(q){
   const type=String(q.t||'');
-  // Với câu Ngữ pháp dạng: 彼はゲーム（ ）しています。
-  // phần cần học là đáp án đúng (ví dụ ばかり), không phải "彼はゲーム".
   if(type.includes('Ngữ pháp')){
-    const correct=Array.isArray(q.a)?q.a[q.c]:'';
-    const grammar=japaneseExpression(correct);
+    const grammar=grammarLearningPattern(q);
     if(grammar)return grammar;
   }
   return targetJapaneseWord(q);
 }
 function exampleJapanese(q){
+  const type=String(q.t||'');
+  // Với Ngữ pháp, điền đáp án đúng vào chỗ trống để nút "Nghe ví dụ"
+  // đọc câu hoàn chỉnh thay vì đọc dòng giải thích ngữ pháp.
+  if(type.includes('Ngữ pháp')){
+    const correct=Array.isArray(q.a)?String(q.a[q.c]||''):'';
+    if(correct){
+      const source=String(q.q||'');
+      const filled=source
+        .replace(/（\s*）/,correct)
+        .replace(/\(\s*\)/,correct);
+      if(filled!==source&&JP_RE.test(filled))return filled;
+    }
+  }
   const lines=String(q.e||'').split(/\n+/).map(x=>x.trim()).filter(Boolean);
-  // Ưu tiên dòng ví dụ tiếng Nhật đầu tiên; bỏ dòng dịch tiếng Việt bắt đầu bằng mũi tên.
   return lines.find(line=>JP_RE.test(line)&&!/^→/.test(line))||'';
 }
 function canSpeakText(text){return 'speechSynthesis'in window&&!!text&&JP_RE.test(text)}
