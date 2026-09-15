@@ -1,124 +1,69 @@
 // Ngân hàng câu hỏi JLPT N3.
-// Muốn thêm câu mới sau này, chỉ cần thêm object vào mảng bên dưới.
+// t = loại câu hỏi, q = câu hỏi, r = hiragana/gợi ý, a = đáp án, c = chỉ số đáp án đúng, e = giải thích.
 window.N3_QUESTION_BANK = [
-  {
-    t: "Từ vựng",
-    q: "「慣れる」 có nghĩa là gì?",
-    r: "なれる",
-    a: ["Quên", "Quen, trở nên quen", "Lựa chọn", "Tăng lên"],
-    c: 1,
-    e: "日本の生活に慣れました。\nにほんの せいかつに なれました。\n→ Tôi đã quen với cuộc sống ở Nhật."
-  },
-  {
-    t: "Từ vựng",
-    q: "「間に合う」 có nghĩa là gì?",
-    r: "まにあう",
-    a: ["Kịp giờ", "Tiếp tục", "Xác nhận", "Thay đổi"],
-    c: 0,
-    e: "電車に間に合いました。\nでんしゃに まにあいました。\n→ Tôi đã kịp chuyến tàu."
-  },
-  {
-    t: "Kanji",
-    q: "Cách đọc của 「経験」 là gì?",
-    r: "Chọn hiragana đúng.",
-    a: ["けいけん", "けんけい", "けいげん", "けんげん"],
-    c: 0,
-    e: "経験があります。\nけいけんが あります。\n→ Tôi có kinh nghiệm."
-  },
-  {
-    t: "Kanji",
-    q: "Cách đọc của 「準備」 là gì?",
-    r: "Chọn hiragana đúng.",
-    a: ["じゅび", "じゅんび", "じゅんぴ", "じゅうび"],
-    c: 1,
-    e: "旅行の準備をします。\nりょこうの じゅんびを します。\n→ Tôi chuẩn bị cho chuyến đi."
-  },
-  {
-    t: "Ngữ pháp",
-    q: "日本で働く（　）、日本語を勉強しています。",
-    r: "にほんで はたらく（　）、にほんごを べんきょうしています。",
-    a: ["ばかり", "ために", "てしまう", "ことになる"],
-    c: 1,
-    e: "～ために = để / vì mục đích…\n→ Tôi học tiếng Nhật để làm việc ở Nhật."
-  },
-  {
-    t: "Ngữ pháp",
-    q: "財布を忘れて（　）。",
-    r: "さいふを わすれて（　）。",
-    a: ["なりました", "しまいました", "ためです", "ばかりです"],
-    c: 1,
-    e: "～てしまう diễn tả việc lỡ làm hoặc cảm giác tiếc nuối.\n→ Tôi lỡ quên ví mất rồi."
-  },
-  {
-    t: "Ngữ pháp",
-    q: "毎日練習して、漢字が読める（　）。",
-    r: "まいにち れんしゅうして、かんじが よめる（　）。",
-    a: ["ようになりました", "ばかりでした", "ためでした", "ことでした"],
-    c: 0,
-    e: "～ようになる = trở nên có thể…\n→ Tôi đã có thể đọc Kanji."
-  },
-  {
-    t: "Từ vựng",
-    q: "「増える」 trái nghĩa gần nhất với từ nào?",
-    r: "ふえる",
-    a: ["減る（へる）", "続く（つづく）", "選ぶ（えらぶ）", "決める（きめる）"],
-    c: 0,
-    e: "増える（ふえる）= tăng lên\n減る（へる）= giảm đi"
-  },
-  {
-    t: "Ngữ pháp",
-    q: "忘れない（　）、メモしてください。",
-    r: "わすれない（　）、めもして ください。",
-    a: ["ために", "ように", "ばかり", "ことになる"],
-    c: 1,
-    e: "～ように = để sao cho…\n→ Hãy ghi chú lại để không quên."
-  },
-  {
-    t: "Kanji",
-    q: "「約束」 nghĩa là gì?",
-    r: "やくそく",
-    a: ["Chuẩn bị", "Kinh nghiệm", "Lời hứa / cuộc hẹn", "Thói quen"],
-    c: 2,
-    e: "友達と約束があります。\nともだちと やくそくが あります。\n→ Tôi có hẹn với bạn."
-  },
-  {
-    t: "Từ vựng",
-    q: "「必ず」 có nghĩa là gì?",
-    r: "かならず",
-    a: ["Có lẽ", "Thỉnh thoảng", "Nhất định / chắc chắn", "Gần đây"],
-    c: 2,
-    e: "明日は必ず行きます。\nあしたは かならず いきます。\n→ Ngày mai tôi nhất định sẽ đi."
-  },
-  {
-    t: "Kanji",
-    q: "Cách đọc của 「確認」 là gì?",
-    r: "Chọn hiragana đúng.",
-    a: ["かくにん", "かくねん", "かくじん", "かっにん"],
-    c: 0,
-    e: "もう一度確認してください。\nもういちど かくにんして ください。\n→ Hãy kiểm tra lại một lần nữa."
-  },
-  {
-    t: "Ngữ pháp",
-    q: "来月、大阪へ出張する（　）。",
-    r: "らいげつ、おおさかへ しゅっちょうする（　）。",
-    a: ["ようにしました", "ことになりました", "ばかりでした", "ためにしました"],
-    c: 1,
-    e: "～ことになる = được quyết định là…\n→ Tháng sau tôi sẽ đi công tác Osaka."
-  },
-  {
-    t: "Từ vựng",
-    q: "「選ぶ」 có nghĩa là gì?",
-    r: "えらぶ",
-    a: ["Lựa chọn", "Giải thích", "Quên", "Tiếp tục"],
-    c: 0,
-    e: "好きなものを選んでください。\nすきな ものを えらんで ください。\n→ Hãy chọn thứ bạn thích."
-  },
-  {
-    t: "Ngữ pháp",
-    q: "彼はゲーム（　）しています。",
-    r: "かれは げーむ（　）しています。",
-    a: ["ように", "ばかり", "ために", "ことになる"],
-    c: 1,
-    e: "～ばかり = chỉ toàn…\n→ Anh ấy chỉ toàn chơi game."
-  }
+  // ===== TỪ VỰNG =====
+  {t:"Từ vựng",q:"「慣れる」 có nghĩa là gì?",r:"なれる",a:["Quên","Quen, trở nên quen","Lựa chọn","Tăng lên"],c:1,e:"日本の生活に慣れました。\nにほんの せいかつに なれました。\n→ Tôi đã quen với cuộc sống ở Nhật."},
+  {t:"Từ vựng",q:"「間に合う」 có nghĩa là gì?",r:"まにあう",a:["Kịp giờ","Tiếp tục","Xác nhận","Thay đổi"],c:0,e:"電車に間に合いました。\nでんしゃに まにあいました。\n→ Tôi đã kịp chuyến tàu."},
+  {t:"Từ vựng",q:"「必ず」 có nghĩa là gì?",r:"かならず",a:["Có lẽ","Thỉnh thoảng","Nhất định / chắc chắn","Gần đây"],c:2,e:"明日は必ず行きます。\nあしたは かならず いきます。\n→ Ngày mai tôi nhất định sẽ đi."},
+  {t:"Từ vựng",q:"「増える」 trái nghĩa gần nhất với từ nào?",r:"ふえる",a:["減る（へる）","続く（つづく）","選ぶ（えらぶ）","決める（きめる）"],c:0,e:"増える（ふえる）= tăng lên\n減る（へる）= giảm đi"},
+  {t:"Từ vựng",q:"「選ぶ」 có nghĩa là gì?",r:"えらぶ",a:["Lựa chọn","Giải thích","Quên","Tiếp tục"],c:0,e:"好きなものを選んでください。\nすきな ものを えらんで ください。\n→ Hãy chọn thứ bạn thích."},
+  {t:"Từ vựng",q:"「申し込む」 có nghĩa là gì?",r:"もうしこむ",a:["Đăng ký / nộp đơn","Từ chối","So sánh","Sửa chữa"],c:0,e:"日本語の試験に申し込みました。\nにほんごの しけんに もうしこみました。\n→ Tôi đã đăng ký kỳ thi tiếng Nhật."},
+  {t:"Từ vựng",q:"「届く」 có nghĩa là gì?",r:"とどく",a:["Được giao tới / tới nơi","Rời khỏi","Trả lại","Mang theo"],c:0,e:"荷物が昨日届きました。\nにもつが きのう とどきました。\n→ Hành lý đã được giao đến hôm qua."},
+  {t:"Từ vựng",q:"「比べる」 có nghĩa là gì?",r:"くらべる",a:["So sánh","Thu thập","Thay đổi","Điều tra"],c:0,e:"二つの商品を比べます。\nふたつの しょうひんを くらべます。\n→ Tôi so sánh hai sản phẩm."},
+  {t:"Từ vựng",q:"「断る」 có nghĩa là gì?",r:"ことわる",a:["Từ chối","Mời","Đồng ý","Truyền đạt"],c:0,e:"忙しいので、誘いを断りました。\nいそがしいので、さそいを ことわりました。\n→ Vì bận nên tôi đã từ chối lời mời."},
+  {t:"Từ vựng",q:"「迷う」 có nghĩa là gì?",r:"まよう",a:["Bị lạc / phân vân","Quen thuộc","Quyết định","Gặp gỡ"],c:0,e:"道に迷ってしまいました。\nみちに まよってしまいました。\n→ Tôi đã bị lạc đường."},
+  {t:"Từ vựng",q:"「通う」 có nghĩa là gì?",r:"かよう",a:["Đi lại thường xuyên tới một nơi","Đi ngang qua một lần","Quay về quê","Đổi tàu"],c:0,e:"毎日電車で会社に通っています。\nまいにち でんしゃで かいしゃに かよっています。\n→ Mỗi ngày tôi đi tàu đến công ty."},
+  {t:"Từ vựng",q:"「調べる」 có nghĩa là gì?",r:"しらべる",a:["Tra cứu / kiểm tra","Luyện tập","Ghi nhớ","Thảo luận"],c:0,e:"分からない言葉を辞書で調べます。\nわからない ことばを じしょで しらべます。\n→ Tôi tra từ không hiểu bằng từ điển."},
+  {t:"Từ vựng",q:"「直す」 có nghĩa là gì?",r:"なおす",a:["Sửa / chỉnh lại","Phá bỏ","Làm bẩn","Giấu đi"],c:0,e:"間違いを直してください。\nまちがいを なおして ください。\n→ Hãy sửa lỗi sai."},
+  {t:"Từ vựng",q:"「似る」 có nghĩa là gì?",r:"にる",a:["Giống / giống nhau","Khác hẳn","Nhìn thấy","Nấu chín"],c:0,e:"妹は母に似ています。\nいもうとは ははに にています。\n→ Em gái tôi giống mẹ."},
+  {t:"Từ vựng",q:"「済む」 có nghĩa gần nhất là gì?",r:"すむ",a:["Xong / hoàn tất","Bắt đầu","Tiếp tục","Trì hoãn"],c:0,e:"仕事はもう済みました。\nしごとは もう すみました。\n→ Công việc đã xong rồi."},
+  {t:"Từ vựng",q:"「決して」 thường đi với dạng nào?",r:"けっして",a:["Phủ định","Mệnh lệnh","Quá khứ bắt buộc","So sánh"],c:0,e:"決して忘れません。\nけっして わすれません。\n→ Tôi tuyệt đối sẽ không quên."},
+  {t:"Từ vựng",q:"「確か」 có nghĩa phù hợp nhất là gì?",r:"たしか",a:["Nếu tôi nhớ không nhầm / chắc là","Hoàn toàn không","Ngay lập tức","Rất hiếm khi"],c:0,e:"確か、会議は3時からです。\nたしか、かいぎは さんじからです。\n→ Nếu tôi nhớ không nhầm, cuộc họp bắt đầu từ 3 giờ."},
+  {t:"Từ vựng",q:"「続ける」 có nghĩa là gì?",r:"つづける",a:["Tiếp tục làm","Kết thúc","Đợi chờ","Bắt đầu lại"],c:0,e:"毎日勉強を続けています。\nまいにち べんきょうを つづけています。\n→ Tôi tiếp tục học mỗi ngày."},
+  {t:"Từ vựng",q:"「間違える」 có nghĩa là gì?",r:"まちがえる",a:["Làm sai / nhầm","Ghi nhớ","Chọn đúng","Giải thích"],c:0,e:"電話番号を間違えました。\nでんわばんごうを まちがえました。\n→ Tôi đã nhầm số điện thoại."},
+  {t:"Từ vựng",q:"「変わる」 có nghĩa là gì?",r:"かわる",a:["Thay đổi","Thay thế ai đó","Trả lại","Khô đi"],c:0,e:"季節が変わりました。\nきせつが かわりました。\n→ Mùa đã thay đổi."},
+
+  // ===== KANJI =====
+  {t:"Kanji",q:"Cách đọc của 「経験」 là gì?",r:"Chọn hiragana đúng.",a:["けいけん","けんけい","けいげん","けんげん"],c:0,e:"経験があります。\nけいけんが あります。\n→ Tôi có kinh nghiệm."},
+  {t:"Kanji",q:"Cách đọc của 「準備」 là gì?",r:"Chọn hiragana đúng.",a:["じゅび","じゅんび","じゅんぴ","じゅうび"],c:1,e:"旅行の準備をします。\nりょこうの じゅんびを します。\n→ Tôi chuẩn bị cho chuyến đi."},
+  {t:"Kanji",q:"Cách đọc của 「確認」 là gì?",r:"Chọn hiragana đúng.",a:["かくにん","かくねん","かくじん","かっにん"],c:0,e:"もう一度確認してください。\nもういちど かくにんして ください。\n→ Hãy kiểm tra lại một lần nữa."},
+  {t:"Kanji",q:"「約束」 nghĩa là gì?",r:"やくそく",a:["Chuẩn bị","Kinh nghiệm","Lời hứa / cuộc hẹn","Thói quen"],c:2,e:"友達と約束があります。\nともだちと やくそくが あります。\n→ Tôi có hẹn với bạn."},
+  {t:"Kanji",q:"Cách đọc của 「予定」 là gì?",r:"Chọn hiragana đúng.",a:["よてい","よたい","ようてい","よでい"],c:0,e:"明日の予定を確認します。\nあしたの よていを かくにんします。\n→ Tôi kiểm tra kế hoạch ngày mai."},
+  {t:"Kanji",q:"Cách đọc của 「連絡」 là gì?",r:"Chọn hiragana đúng.",a:["れんらく","れいらく","れんがく","れんろく"],c:0,e:"後で連絡します。\nあとで れんらくします。\n→ Tôi sẽ liên lạc sau."},
+  {t:"Kanji",q:"「説明」 nghĩa là gì?",r:"せつめい",a:["Giải thích","Liên lạc","Kinh nghiệm","Trạng thái"],c:0,e:"使い方を説明します。\nつかいかたを せつめいします。\n→ Tôi giải thích cách sử dụng."},
+  {t:"Kanji",q:"Cách đọc của 「注意」 là gì?",r:"Chọn hiragana đúng.",a:["ちゅうい","ちゅい","じゅうい","ちょうい"],c:0,e:"車に注意してください。\nくるまに ちゅういして ください。\n→ Hãy chú ý xe cộ."},
+  {t:"Kanji",q:"「必要」 nghĩa là gì?",r:"ひつよう",a:["Cần thiết","Nguy hiểm","Đặc biệt","Tự do"],c:0,e:"パスポートが必要です。\nぱすぽーとが ひつようです。\n→ Cần hộ chiếu."},
+  {t:"Kanji",q:"Cách đọc của 「利用」 là gì?",r:"Chọn hiragana đúng.",a:["りよう","りゆう","りょよう","りょう"],c:0,e:"図書館を利用します。\nとしょかんを りようします。\n→ Tôi sử dụng thư viện."},
+  {t:"Kanji",q:"Cách đọc của 「状態」 là gì?",r:"Chọn hiragana đúng.",a:["じょうたい","じょうだい","しょうたい","じょたい"],c:0,e:"機械の状態を確認します。\nきかいの じょうたいを かくにんします。\n→ Tôi kiểm tra tình trạng của máy."},
+  {t:"Kanji",q:"「原因」 nghĩa là gì?",r:"げんいん",a:["Nguyên nhân","Kết quả","Quan hệ","Trường hợp"],c:0,e:"事故の原因を調べます。\nじこの げんいんを しらべます。\n→ Tôi điều tra nguyên nhân tai nạn."},
+  {t:"Kanji",q:"Cách đọc của 「結果」 là gì?",r:"Chọn hiragana đúng.",a:["けっか","けつか","けっが","けか"],c:0,e:"試験の結果が出ました。\nしけんの けっかが でました。\n→ Đã có kết quả kỳ thi."},
+  {t:"Kanji",q:"「関係」 nghĩa là gì?",r:"かんけい",a:["Mối quan hệ / liên quan","Tình trạng","Hy vọng","Ý kiến"],c:0,e:"この問題とは関係ありません。\nこの もんだいとは かんけいありません。\n→ Không liên quan đến vấn đề này."},
+  {t:"Kanji",q:"Cách đọc của 「場合」 là gì?",r:"Chọn hiragana đúng.",a:["ばあい","ばごう","はあい","ばい"],c:0,e:"雨の場合は中止です。\nあめの ばあいは ちゅうしです。\n→ Trường hợp mưa thì sẽ hủy."},
+  {t:"Kanji",q:"Cách đọc của 「最近」 là gì?",r:"Chọn hiragana đúng.",a:["さいきん","さいこん","せいきん","さいけん"],c:0,e:"最近忙しいです。\nさいきん いそがしいです。\n→ Gần đây tôi bận."},
+  {t:"Kanji",q:"「希望」 nghĩa là gì?",r:"きぼう",a:["Hy vọng / nguyện vọng","Ý kiến","Thói quen","Giao thông"],c:0,e:"希望の日を選んでください。\nきぼうの ひを えらんで ください。\n→ Hãy chọn ngày bạn mong muốn."},
+  {t:"Kanji",q:"Cách đọc của 「意見」 là gì?",r:"Chọn hiragana đúng.",a:["いけん","いげん","いかん","いきん"],c:0,e:"あなたの意見を聞かせてください。\nあなたの いけんを きかせて ください。\n→ Hãy cho tôi biết ý kiến của bạn."},
+  {t:"Kanji",q:"Cách đọc của 「交通」 là gì?",r:"Chọn hiragana đúng.",a:["こうつう","こうどう","こつう","こうとう"],c:0,e:"交通が便利な町です。\nこうつうが べんりな まちです。\n→ Đây là thành phố có giao thông thuận tiện."},
+  {t:"Kanji",q:"「習慣」 nghĩa là gì?",r:"しゅうかん",a:["Thói quen","Kế hoạch","Kinh nghiệm","Nguyên nhân"],c:0,e:"毎朝走るのが習慣です。\nまいあさ はしるのが しゅうかんです。\n→ Chạy mỗi sáng là thói quen của tôi."},
+
+  // ===== NGỮ PHÁP =====
+  {t:"Ngữ pháp",q:"日本で働く（　）、日本語を勉強しています。",r:"にほんで はたらく（　）、にほんごを べんきょうしています。",a:["ばかり","ために","てしまう","ことになる"],c:1,e:"～ために = để / vì mục đích…\n→ Tôi học tiếng Nhật để làm việc ở Nhật."},
+  {t:"Ngữ pháp",q:"財布を忘れて（　）。",r:"さいふを わすれて（　）。",a:["なりました","しまいました","ためです","ばかりです"],c:1,e:"～てしまう diễn tả việc lỡ làm hoặc cảm giác tiếc nuối.\n→ Tôi lỡ quên ví mất rồi."},
+  {t:"Ngữ pháp",q:"毎日練習して、漢字が読める（　）。",r:"まいにち れんしゅうして、かんじが よめる（　）。",a:["ようになりました","ばかりでした","ためでした","ことでした"],c:0,e:"～ようになる = trở nên có thể…\n→ Tôi đã có thể đọc Kanji."},
+  {t:"Ngữ pháp",q:"忘れない（　）、メモしてください。",r:"わすれない（　）、めもして ください。",a:["ために","ように","ばかり","ことになる"],c:1,e:"～ように = để sao cho…\n→ Hãy ghi chú lại để không quên."},
+  {t:"Ngữ pháp",q:"来月、大阪へ出張する（　）。",r:"らいげつ、おおさかへ しゅっちょうする（　）。",a:["ようにしました","ことになりました","ばかりでした","ためにしました"],c:1,e:"～ことになる = được quyết định là…\n→ Đã có quyết định rằng tháng sau tôi sẽ đi công tác Osaka."},
+  {t:"Ngữ pháp",q:"彼はゲーム（　）しています。",r:"かれは げーむ（　）しています。",a:["ように","ばかり","ために","ことになる"],c:1,e:"～ばかり = chỉ toàn…\n→ Anh ấy chỉ toàn chơi game."},
+  {t:"Ngữ pháp",q:"日本にいる（　）、京都へ行ってみたいです。",r:"にほんに いる（　）、きょうとへ いってみたいです。",a:["うちに","たびに","しか","ほど"],c:0,e:"～うちに = trong lúc / trước khi trạng thái thay đổi.\n→ Trong lúc còn ở Nhật, tôi muốn thử đi Kyoto."},
+  {t:"Ngữ pháp",q:"この写真を見る（　）、高校時代を思い出します。",r:"この しゃしんを みる（　）、こうこうじだいを おもいだします。",a:["たびに","せいで","ほど","まま"],c:0,e:"～たびに = mỗi khi / mỗi lần.\n→ Mỗi lần xem bức ảnh này, tôi lại nhớ thời cấp ba."},
+  {t:"Ngữ pháp",q:"健康のために、毎日歩く（　）しています。",r:"けんこうの ために、まいにち あるく（　）しています。",a:["ように","ことに","わけに","ところに"],c:0,e:"～ようにする = cố gắng tạo thói quen làm gì.\n→ Vì sức khỏe, tôi cố gắng đi bộ mỗi ngày."},
+  {t:"Ngữ pháp",q:"明日から甘い物を食べない（　）。",r:"あしたから あまいものを たべない（　）。",a:["ことにしました","ようになりました","ことになりました","ところでした"],c:0,e:"～ことにする = tự mình quyết định làm/không làm gì.\n→ Tôi quyết định từ ngày mai sẽ không ăn đồ ngọt."},
+  {t:"Ngữ pháp",q:"この店は安いですが、いつも安い（　）。",r:"この みせは やすいですが、いつも やすい（　）。",a:["わけではありません","にちがいありません","しかありません","ことになります"],c:0,e:"～わけではない = không hẳn là / không phải lúc nào cũng.\n→ Cửa hàng này rẻ, nhưng không phải lúc nào cũng rẻ."},
+  {t:"Ngữ pháp",q:"電車が止まったので、タクシーで行く（　）。",r:"でんしゃが とまったので、たくしーで いく（　）。",a:["しかありません","ことはありません","ようになりました","ばかりです"],c:0,e:"～しかない = không còn cách nào khác ngoài…\n→ Tàu dừng nên chỉ còn cách đi taxi."},
+  {t:"Ngữ pháp",q:"そんなに心配する（　）。",r:"そんなに しんぱいする（　）。",a:["ことはありません","しかありません","ことになりました","ところです"],c:0,e:"～ことはない = không cần phải…\n→ Không cần lo lắng đến vậy."},
+  {t:"Ngữ pháp",q:"旅行の前にホテルを予約して（　）。",r:"りょこうの まえに ほてるを よやくして（　）。",a:["おきます","みます","あります","いきます"],c:0,e:"～ておく = làm trước để chuẩn bị.\n→ Tôi đặt khách sạn trước chuyến đi."},
+  {t:"Ngữ pháp",q:"音楽を聞き（　）、勉強します。",r:"おんがくを きき（　）、べんきょうします。",a:["ながら","うちに","ために","そうに"],c:0,e:"～ながら = vừa… vừa…\n→ Tôi vừa nghe nhạc vừa học."},
+  {t:"Ngữ pháp",q:"友達が手伝ってくれた（　）、早く終わりました。",r:"ともだちが てつだってくれた（　）、はやく おわりました。",a:["おかげで","せいで","わけで","たびに"],c:0,e:"～おかげで = nhờ vào (kết quả tích cực).\n→ Nhờ bạn giúp nên tôi xong sớm."},
+  {t:"Ngữ pháp",q:"雨の（　）、試合が中止になりました。",r:"あめの（　）、しあいが ちゅうしに なりました。",a:["せいで","おかげで","うちに","ための"],c:0,e:"～せいで = tại / vì (kết quả tiêu cực).\n→ Vì mưa nên trận đấu bị hủy."},
+  {t:"Ngữ pháp",q:"ニュースによると、明日は雪が降る（　）。",r:"にゅーすに よると、あしたは ゆきが ふる（　）。",a:["そうです","ようにします","ところです","ばかりです"],c:0,e:"～そうだ (truyền đạt) = nghe nói rằng…\n→ Theo tin tức, nghe nói ngày mai sẽ có tuyết."},
+  {t:"Ngữ pháp",q:"空が暗いです。雨が降り（　）。",r:"そらが くらいです。あめが ふり（　）。",a:["そうです","らしいです","ことです","ためです"],c:0,e:"～そうだ (vẻ ngoài) = trông có vẻ sắp…\n→ Trời tối, có vẻ sắp mưa."},
+  {t:"Ngữ pháp",q:"田中さんは今日は休みです。病気（　）。",r:"たなかさんは きょうは やすみです。びょうき（　）。",a:["らしいです","ながらです","ばかりです","しかないです"],c:0,e:"～らしい = nghe nói / có vẻ theo thông tin có được.\n→ Hôm nay anh Tanaka nghỉ. Nghe nói là bị ốm."}
 ];
