@@ -65,7 +65,7 @@ button:focus-visible,select:focus-visible{outline:3px solid color-mix(in srgb,va
     <div class="modegrid">
       <button class="mode" data-go="practice"><span class="ico">✏️</span><b>Luyện tập</b><small>Chọn phần và số câu muốn làm.</small><span class="meta">TÙY CHỈNH</span></button>
       <button class="mode" id="wrongMode"><span class="ico">🧠</span><b>Ôn câu sai</b><small>Ưu tiên các câu Lan từng trả lời sai.</small><span class="meta" id="wrongMeta">0 CÂU</span></button>
-      <button class="mode" id="listenMode"><span class="ico">🔊</span><b>Nghe & nhớ</b><small>Làm bài và tự động nghe ví dụ sau khi chọn.</small><span class="meta">TỰ ĐỌC</span></button>
+      <button class="mode" id="listenMode"><span class="ico">🔊</span><b>Nghe & nhớ</b><small>Chọn đáp án xong sẽ tự đọc từ đang học. Có thể bấm nghe câu ví dụ khi cần.</small><span class="meta">TỰ ĐỌC TỪ</span></button>
       <button class="mode" data-go="progress"><span class="ico">📊</span><b>Tiến độ</b><small>Xem độ chính xác theo từng phần.</small><span class="meta">THỐNG KÊ</span></button>
     </div>
   </main>
@@ -117,7 +117,7 @@ button:focus-visible,select:focus-visible{outline:3px solid color-mix(in srgb,va
       <div id="reading" class="reading hide"></div>
       <div class="tools">
         <button id="hintBtn" class="tool">あ Hiragana</button>
-        <button id="speakBtn" class="tool">🔊 Nghe câu</button>
+        <button id="speakBtn" class="tool">🔊 Nghe ví dụ</button>
       </div>
     </section>
     <div id="answers" class="answers"></div>
@@ -163,7 +163,7 @@ const escapeHtml=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;'
 let BANK=(window.N3_QUESTION_BANK||[]).map((q,i)=>({...q,id:q.id||('q'+String(i+1).padStart(3,'0'))}));
 let state=load();
 let selectedCategory='Tất cả', selectedLength=10;
-let session=[],pos=0,answered=false,opts=[],score=0,combo=0,maxCombo=0,correct=0,sessionXp=0,wrongNow=[];
+let session=[],pos=0,answered=false,opts=[],score=0,combo=0,maxCombo=0,correct=0,sessionXp=0,wrongNow=[],lastSpokenText='';
 
 function defaultState(){return{total:0,correct:0,xp:0,streak:0,lastStudy:'',daily:{date:TODAY(),done:0,correct:0},cats:{},wrong:{}}}
 function load(){try{return Object.assign(defaultState(),JSON.parse(localStorage.getItem(STORE)||'{}'))}catch{return defaultState()}}
@@ -238,7 +238,8 @@ function startSession(pool,len){
 function renderQuestion(){
   const q=session[pos];answered=false;opts=shuffle(q.a.map((text,i)=>({text,correct:i===q.c,orig:i})));
   $('typeTag').textContent=q.t||'N3';$('counter').textContent=`${pos+1}/${session.length}`;$('quizBar').style.width=(pos/session.length*100)+'%';$('question').textContent=q.q;$('reading').textContent=q.r||'';$('reading').classList.add('hide');$('hintBtn').textContent='あ Hiragana';$('feedback').className='feedback hide';$('feedback').innerHTML='';$('nextBtn').disabled=true;$('nextBtn').textContent=pos===session.length-1?'Xem kết quả':'Câu tiếp theo';
-  const box=$('answers');box.innerHTML='';opts.forEach((o,i)=>{const b=document.createElement('button');b.className='answer';b.dataset.i=i;b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span>${escapeHtml(o.text)}`;b.onclick=choose;box.appendChild(b)});updateSessionStats();$('speakBtn').disabled=!canSpeak(q);
+  lastSpokenText=targetJapaneseWord(q);
+  const box=$('answers');box.innerHTML='';opts.forEach((o,i)=>{const b=document.createElement('button');b.className='answer';b.dataset.i=i;b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span>${escapeHtml(o.text)}`;b.onclick=choose;box.appendChild(b)});updateSessionStats();$('speakBtn').disabled=!canSpeakText(exampleJapanese(q));
 }
 function updateSessionStats(){const done=pos+(answered?1:0);$('sessionAccuracy').textContent=(done?Math.round(correct/done*100):0)+'%';$('combo').textContent=combo+' 🔥';$('quizScore').textContent=score+' điểm';$('sessionXp').textContent='+'+sessionXp}
 function choose(e){
@@ -247,25 +248,44 @@ function choose(e){
   if(ok){combo++;correct++;maxCombo=Math.max(maxCombo,combo);const gain=10+Math.min(combo-1,5)*2;score+=gain;sessionXp+=5;showFeedback(true,'Chính xác! +'+gain+' điểm',q.e);delete state.wrong[q.id]}
   else{combo=0;e.currentTarget.classList.add('wrong');sessionXp+=2;wrongNow.push({q,selected:o.text});const old=state.wrong[q.id]||{count:0};state.wrong[q.id]={count:(old.count||0)+1,selected:o.text,at:Date.now()};showFeedback(false,'Chưa đúng · đáp án: '+q.a[q.c],q.e)}
   state.total++;if(ok)state.correct++;state.xp=(state.xp||0)+(ok?5:2);ensureDay();state.daily.done++;if(ok)state.daily.correct++;const s=catStat(q.t||'Khác');s.seen++;if(ok)s.correct++;touchStreak();save();$('quizBar').style.width=((pos+1)/session.length*100)+'%';$('nextBtn').disabled=false;updateSessionStats();
-  speakQuestion(q); // tự đọc ngay sau khi chọn đáp án
+  lastSpokenText=targetJapaneseWord(q);
+  speakJapanese(lastSpokenText); // tự động chỉ đọc từ/cụm từ đang học
 }
 function showFeedback(ok,title,exp){const f=$('feedback');f.className='feedback '+(ok?'ok':'no');f.innerHTML=`<b>${escapeHtml(title)}</b><small>${escapeHtml(exp||'')}</small>`}
 $('hintBtn').onclick=()=>{const r=$('reading');r.classList.toggle('hide');$('hintBtn').textContent=r.classList.contains('hide')?'あ Hiragana':'Ẩn hiragana'};
 $('nextBtn').onclick=()=>{if(!answered)return;if(pos<session.length-1){pos++;renderQuestion();scrollTo({top:0,behavior:'smooth'})}else finishSession()};
 $('quitBtn').onclick=()=>{if(pos>0||answered){if(!confirm('Thoát vòng học hiện tại? Các câu đã trả lời vẫn được lưu.'))return}if('speechSynthesis'in window)speechSynthesis.cancel();showScreen('home')};
 
-function japaneseExample(q){
-  const lines=String(q.e||'').split(/\n+/).map(s=>s.trim()).filter(Boolean);const jp=lines.find(s=>/[一-龯々〆ヵヶぁ-ゖァ-ヺ]/.test(s)&&!/^→/.test(s));
-  if(jp)return jp.replace(/（[^）]*）/g,'');
-  const qq=String(q.q||'').match(/[「『]?([一-龯々ぁ-ゖァ-ヺー]+)[」』]?/);if(qq)return qq[1];
-  return /[ぁ-ゖァ-ヺ一-龯]/.test(q.r||'')?q.r:'';
+const JP_RE=/[一-龯々〆ヵヶぁ-ゖァ-ヺー]/;
+function cleanJapaneseToken(text){
+  return String(text||'').replace(/[（(][^）)]*[）)]/g,'').trim();
 }
-function canSpeak(q){return 'speechSynthesis'in window&&!!japaneseExample(q)}
-function speakQuestion(q){
-  if(!canSpeak(q))return;const text=japaneseExample(q);speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='ja-JP';u.rate=.82;u.pitch=1;
-  const voices=speechSynthesis.getVoices();const v=voices.find(x=>/^ja(-|_)/i.test(x.lang));if(v)u.voice=v;speechSynthesis.speak(u);
+function targetJapaneseWord(q){
+  const qText=String(q.q||'');
+  const quoted=qText.match(/[「『]([^」』]+)[」』]/);
+  if(quoted&&JP_RE.test(quoted[1]))return cleanJapaneseToken(quoted[1]);
+  const token=qText.match(/[一-龯々〆ヵヶぁ-ゖァ-ヺー]+/);
+  if(token)return cleanJapaneseToken(token[0]);
+  if(JP_RE.test(q.r||''))return cleanJapaneseToken(q.r);
+  return '';
 }
-$('speakBtn').onclick=()=>speakQuestion(session[pos]);
+function exampleJapanese(q){
+  const lines=String(q.e||'').split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  // Ưu tiên dòng ví dụ tiếng Nhật đầu tiên; bỏ dòng dịch tiếng Việt bắt đầu bằng mũi tên.
+  return lines.find(line=>JP_RE.test(line)&&!/^→/.test(line))||'';
+}
+function canSpeakText(text){return 'speechSynthesis'in window&&!!text&&JP_RE.test(text)}
+function speakJapanese(text){
+  if(!canSpeakText(text))return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='ja-JP';u.rate=.72;u.pitch=1;
+  const voices=speechSynthesis.getVoices();
+  const v=voices.find(x=>/^ja(-|_)/i.test(x.lang));
+  if(v)u.voice=v;
+  speechSynthesis.speak(u);
+}
+$('speakBtn').onclick=()=>speakJapanese(exampleJapanese(session[pos]));
 
 function finishSession(){
   if('speechSynthesis'in window)speechSynthesis.cancel();showScreen('result');const pct=Math.round(correct/session.length*100);$('finalAccuracy').textContent=pct+'%';$('finalScore').textContent=score;$('finalCombo').textContent=maxCombo;$('xpGain').textContent='+'+sessionXp;
