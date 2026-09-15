@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Bài tập của Lan · expanded-vocab v6 -->
+<!-- Bài tập của Lan · vocab-kanji-flashcard v9 -->
 <!-- Bài tập của Lan · grammar-speech-fix v4 -->
 <html lang="vi">
 <head>
@@ -29,6 +29,28 @@ button:focus-visible,select:focus-visible{outline:3px solid color-mix(in srgb,va
 .card{background:var(--card);border:1px solid var(--line);border-radius:21px;box-shadow:var(--shadow)}.hero{padding:19px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:900}.hero h1{font-size:25px;line-height:1.14;letter-spacing:-.025em;margin:5px 0 8px}.hero p{font-size:13px;line-height:1.55;color:var(--muted);margin:0}.goal{margin-top:16px}.goalhead{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-bottom:7px}.goalhead strong{color:var(--text)}.progress{height:8px;background:var(--line);border-radius:999px;overflow:hidden}.progress>i,.progress>div{display:block;height:100%;background:var(--accent);border-radius:999px;transition:width .2s}.primary{border:0;background:var(--accent);color:#fff;min-height:50px;border-radius:14px;padding:11px 15px;font-weight:850}.primary:active{background:var(--accent2);transform:translateY(1px)}.primary:disabled{opacity:.45;cursor:default;transform:none}.dailybtn{width:100%;display:flex;align-items:center;justify-content:space-between;margin-top:14px;text-align:left}.dailybtn small{font-weight:650;opacity:.85}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:9px 0}.stat{padding:10px 4px;text-align:center}.stat span,.stat b{display:block}.stat span{font-size:9px;color:var(--muted)}.stat b{font-size:16px;margin-top:3px}
 .sectionhead{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:17px 2px 9px}.sectionhead h2{font-size:18px;margin:0}.sectionhead span{font-size:11px;color:var(--muted)}.modegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.mode{border:1px solid var(--line);background:var(--card);border-radius:17px;padding:13px;text-align:left;min-height:104px;box-shadow:var(--shadow)}.mode:active{transform:scale(.988)}.mode .ico{font-size:24px}.mode b,.mode small{display:block}.mode b{font-size:14px;margin-top:9px}.mode small{font-size:11px;color:var(--muted);line-height:1.35;margin-top:3px}.mode .meta{font-size:10px;color:var(--accent);font-weight:800;margin-top:8px}
 .notice{border:1px solid #e4b65d;background:#fff8e7;color:#795400;border-radius:15px;padding:12px 13px;font-size:12px;line-height:1.5;margin-bottom:10px}:root[data-theme="dark"] .notice{background:#332914;border-color:#6f5921;color:#ffe29a}.learncard,.reviewcard,.progresscard{padding:17px}.segmented{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;padding:3px;background:var(--card2);border:1px solid var(--line);border-radius:13px;margin:13px 0}.segmented button{border:0;background:transparent;border-radius:10px;height:38px;font-weight:750;color:var(--muted)}.segmented button.selected{background:var(--card);color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.06)}.selectgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.selectcard{border:1px solid var(--line);background:var(--card2);border-radius:15px;padding:12px;text-align:left}.selectcard.selected{border:2px solid var(--accent);background:var(--soft);padding:11px}.selectcard b,.selectcard small{display:block}.selectcard small{color:var(--muted);font-size:11px;margin-top:4px}.bigbtn{width:100%;font-size:15px;margin-top:13px}.hintline{text-align:center;color:var(--muted);font-size:11px;line-height:1.45;margin:9px 0 0}.secondary,.ghost{border:1px solid var(--line);background:var(--card);border-radius:13px;min-height:46px;padding:10px 12px;font-weight:750}.ghost{background:transparent}.reviewactions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.list{display:grid;gap:8px;margin-top:10px}.reviewitem{border:1px solid var(--line);background:var(--card2);border-radius:14px;padding:12px}.reviewitem b{display:block;line-height:1.4}.reviewitem small{display:block;color:var(--muted);line-height:1.45;margin-top:5px;white-space:pre-line}.reviewitem .bad{color:var(--bad)}.reviewitem .good{color:var(--ok)}.empty{text-align:center;color:var(--muted);padding:22px 10px;font-size:13px}.categoryrow{display:grid;grid-template-columns:80px 1fr 42px;align-items:center;gap:8px;font-size:12px;margin-top:9px}.categorybar{height:8px;background:var(--line);border-radius:999px;overflow:hidden}.categorybar i{display:block;height:100%;background:var(--accent);border-radius:999px}.badges{display:flex;gap:7px;overflow-x:auto;padding:4px 0 2px;scrollbar-width:none}.badges::-webkit-scrollbar{display:none}.badge{white-space:nowrap;border:1px solid var(--line);background:var(--card2);border-radius:999px;padding:7px 9px;font-size:10px}
+
+
+.flashlabel.new{background:var(--soft);color:var(--accent)}
+.flashlabel.review{background:#fff7e8;color:#9a6700}
+.flashlabel.learning{background:var(--okbg);color:var(--ok)}
+:root[data-theme="dark"] .flashlabel.review{background:#332914;color:#ffd978}
+.flashhint strong{color:var(--text)}
+
+.flashwrap{display:grid;gap:10px}
+.flashtop{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.flashmeta{flex:1}.flashmetahead{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-bottom:6px}.flashmetahead b{color:var(--text)}
+.flashcard{min-height:360px;padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;cursor:pointer;user-select:none;-webkit-user-select:none}
+.flashcard:active{transform:scale(.994)}
+.flashlabel{position:absolute;top:16px;left:16px;border-radius:999px;background:var(--soft);color:var(--accent);padding:6px 10px;font-size:10px;font-weight:850}
+.flashword{font-size:42px;line-height:1.25;font-weight:900;letter-spacing:-.03em;word-break:keep-all}
+.flashhint{margin-top:16px;color:var(--muted);font-size:12px}
+.flashback{width:100%}.flashreading{font-size:23px;font-weight:850;color:var(--accent);margin-bottom:8px}.flashmeaning{font-size:20px;font-weight:850;line-height:1.4}.flashexample{margin-top:20px;padding:14px;border-radius:15px;background:var(--card2);border:1px solid var(--line);text-align:left;line-height:1.55}.flashexample b{display:block;font-size:14px}.flashexample small{display:block;color:var(--muted);margin-top:6px;white-space:pre-line}
+.flashlisten{margin-top:15px;border:1px solid var(--line);background:var(--card);border-radius:12px;min-height:42px;padding:8px 13px;font-weight:750}
+.flashactions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.flashactions button{min-height:54px;border-radius:15px;font-weight:850}.flashno{border:1px solid color-mix(in srgb,var(--bad),transparent 45%);background:var(--badbg);color:var(--bad)}.flashyes{border:1px solid color-mix(in srgb,var(--ok),transparent 45%);background:var(--okbg);color:var(--ok)}.flashactions button:disabled{opacity:.38;cursor:default}
+.flashsummary{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:2px}.flashsummary div{border:1px solid var(--line);background:var(--card);border-radius:13px;padding:9px 4px;text-align:center}.flashsummary span,.flashsummary b{display:block}.flashsummary span{font-size:9px;color:var(--muted)}.flashsummary b{font-size:16px;margin-top:3px}
+@media(max-width:540px){.flashcard{min-height:335px;padding:18px}.flashword{font-size:36px}.flashreading{font-size:21px}.flashmeaning{font-size:18px}}
+
 .bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(4,1fr);gap:3px;padding:7px max(10px,calc((100vw - 760px)/2 + 10px)) calc(7px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--bg),transparent 3%);backdrop-filter:blur(14px);border-top:1px solid var(--line)}.navbtn{border:0;background:transparent;border-radius:12px;padding:6px 2px;color:var(--muted);font-size:10px}.navbtn span{display:block;font-size:19px;margin-bottom:1px}.navbtn.active{color:var(--accent);background:var(--soft)}
 .quiztop{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:9px;padding:6px 0 9px;background:color-mix(in srgb,var(--bg),transparent 5%);backdrop-filter:blur(12px)}.quizprog{flex:1}.quizmeta{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--muted);margin-bottom:5px}.quizmeta strong{color:var(--text)}.quizcard{padding:18px;margin-bottom:9px}.tag{display:inline-block;border-radius:999px;background:var(--soft);color:var(--accent);padding:6px 9px;font-size:10px;font-weight:850}.sessionline{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.sessionline span{background:var(--card2);border-radius:999px;padding:5px 8px;color:var(--muted);font-size:11px}.sessionline b{color:var(--text)}.question{font-size:21px;line-height:1.55;font-weight:850;letter-spacing:-.01em;margin:18px 0 9px}.reading{background:var(--soft);border-radius:12px;padding:10px 12px;color:var(--muted);line-height:1.5;font-size:13px;margin-bottom:10px}.tools{display:flex;gap:7px;flex-wrap:wrap}.tool{border:1px solid var(--line);background:var(--card);border-radius:11px;min-height:39px;padding:8px 10px;font-size:12px}.tool:disabled{opacity:.4}.answers{display:grid;gap:8px}.answer{width:100%;min-height:58px;border:1px solid var(--line);background:var(--card);border-radius:15px;padding:13px;text-align:left;font-weight:650;line-height:1.42;box-shadow:0 4px 14px rgba(0,0,0,.025)}.answer .letter{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:8px;background:var(--card2);color:var(--muted);margin-right:8px;font-size:11px;font-weight:900}.answer.correct{border:2px solid var(--ok);background:var(--okbg);padding:12px}.answer.wrong{border:2px solid var(--bad);background:var(--badbg);padding:12px}.answer.dim{opacity:.58}.answer:disabled{color:var(--text);cursor:default}.feedback{margin-top:9px;border-radius:15px;padding:13px;border:1px solid var(--line);line-height:1.5;font-size:13px;white-space:pre-line}.feedback.ok{background:var(--okbg);border-color:color-mix(in srgb,var(--ok),transparent 55%)}.feedback.no{background:var(--badbg);border-color:color-mix(in srgb,var(--bad),transparent 55%)}.feedback b{display:block;margin-bottom:4px}.feedback small{color:var(--muted);white-space:pre-line}.bottomactionspace{height:78px}.bottomaction{position:fixed;left:0;right:0;bottom:0;z-index:15;padding:10px max(13px,calc((100vw - 760px)/2 + 13px)) calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--bg),transparent 3%);backdrop-filter:blur(14px);border-top:1px solid var(--line)}.bottomaction button{width:100%}.resultcard{padding:22px;text-align:center}.resulticon{font-size:42px}.resultcard h2{font-size:24px;margin:5px 0 7px}.resultcard>p{color:var(--muted);font-size:13px;line-height:1.5;margin:0 auto 15px;max-width:540px}.resultgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.resultgrid div{background:var(--card2);border-radius:12px;padding:9px 4px}.resultgrid span,.resultgrid b{display:block}.resultgrid span{font-size:9px;color:var(--muted)}.resultgrid b{font-size:17px;margin-top:3px}.resultactions{display:grid;gap:8px;margin-top:10px}.toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:40;background:var(--text);color:var(--bg);border-radius:999px;padding:9px 13px;font-size:11px;font-weight:750;white-space:nowrap;box-shadow:var(--shadow)}
 @media(max-width:540px){.app{padding-left:10px;padding-right:10px}.hero h1{font-size:22px}.stats{gap:4px}.stat b{font-size:14px}.modegrid{gap:7px}.mode{padding:11px;min-height:98px}.question{font-size:19px}.resultgrid{grid-template-columns:repeat(2,1fr)}.reviewactions{grid-template-columns:1fr}.categoryrow{grid-template-columns:72px 1fr 38px}}
@@ -68,6 +90,7 @@ button:focus-visible,select:focus-visible{outline:3px solid color-mix(in srgb,va
       <button class="mode" data-go="practice"><span class="ico">✏️</span><b>Luyện tập</b><small>Chọn phần và số câu muốn làm.</small><span class="meta">TÙY CHỈNH</span></button>
       <button class="mode" id="wrongMode"><span class="ico">🧠</span><b>Ôn câu sai</b><small>Ưu tiên các câu Lan từng trả lời sai.</small><span class="meta" id="wrongMeta">0 CÂU</span></button>
       <button class="mode" id="listenMode"><span class="ico">🔊</span><b>Nghe & nhớ</b><small>Chọn đáp án xong sẽ tự đọc đúng mẫu ngữ pháp đang học. Nút Nghe ví dụ sẽ đọc câu hoàn chỉnh.</small><span class="meta">TỰ ĐỌC TỪ / MẪU</span></button>
+      <button class="mode" id="flashMode"><span class="ico">🃏</span><b>Flashcard</b><small>Học Từ vựng + Kanji N3 với hiragana, nghĩa và ví dụ.</small><span class="meta" id="flashMeta">0 ĐÃ HỌC</span></button>
       <button class="mode" data-go="progress"><span class="ico">📊</span><b>Tiến độ</b><small>Xem độ chính xác theo từng phần.</small><span class="meta">THỐNG KÊ</span></button>
     </div>
   </main>
@@ -102,6 +125,52 @@ button:focus-visible,select:focus-visible{outline:3px solid color-mix(in srgb,va
       <div class="sectionhead"><h2>Thành tích</h2><span>lưu trên máy này</span></div>
       <div id="badges" class="badges"></div>
     </section>
+  </main>
+
+
+  <main id="flashcardScreen" class="hide">
+    <div class="flashtop">
+      <button id="flashQuitBtn" class="iconbtn" aria-label="Thoát Flashcard">✕</button>
+      <div class="flashmeta">
+        <div class="flashmetahead"><b id="flashCounter">1/20</b><span id="flashKnownText">Đã nhớ 0</span></div>
+        <div class="progress"><div id="flashBar" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <div class="flashwrap">
+      <div class="segmented" id="flashFilters">
+        <button type="button" data-flash-filter="all" class="selected">Tất cả</button>
+        <button type="button" data-flash-filter="vocab">Từ vựng</button>
+        <button type="button" data-flash-filter="kanji">Kanji</button>
+      </div>
+      <section id="flashCard" class="card flashcard" role="button" tabindex="0" aria-label="Chạm để lật flashcard">
+        <span id="flashStatus" class="flashlabel">TỪ VỰNG N3</span>
+        <div id="flashFront">
+          <div id="flashWord" class="flashword">慣れる</div>
+          <div class="flashhint">Chạm để xem hiragana · nghĩa · ví dụ</div>
+        </div>
+        <div id="flashBack" class="flashback hide">
+          <div id="flashReading" class="flashreading">なれる</div>
+          <div id="flashMeaning" class="flashmeaning">Quen / trở nên quen</div>
+          <div class="flashexample">
+            <b id="flashExampleJp"></b>
+            <small id="flashExampleVi"></small>
+          </div>
+          <button id="flashSpeakBtn" class="flashlisten" type="button">🔊 Nghe từ</button>
+        </div>
+      </section>
+
+      <div class="flashactions">
+        <button id="flashNoBtn" class="flashno" disabled>↻ Chưa nhớ</button>
+        <button id="flashYesBtn" class="flashyes" disabled>✓ Đã nhớ</button>
+      </div>
+
+      <div class="flashsummary">
+        <div><span>ĐÃ XEM</span><b id="flashSeen">0</b></div>
+        <div><span>ĐÃ NHỚ</span><b id="flashRemembered">0</b></div>
+        <div><span>CÒN LẠI</span><b id="flashRemaining">0</b></div>
+      </div>
+    </div>
   </main>
 
   <main id="quizScreen" class="hide">
@@ -163,17 +232,19 @@ const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math
 const escapeHtml=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 
 const EXTRA_VOCAB=[{"t":"Từ vựng","q":"「受け取る」 có nghĩa là gì?","r":"うけとる","a":["Nhận / nhận lấy","Cho mượn","Đánh mất","Trả lại"],"c":0,"e":"荷物を受け取りました。\nにもつを うけとりました。\n→ Tôi đã nhận bưu kiện."},{"t":"Từ vựng","q":"「預ける」 có nghĩa là gì?","r":"あずける","a":["Mang theo","Gửi / để nhờ giữ","Vứt bỏ","Mua"],"c":1,"e":"駅のロッカーに荷物を預けました。\nえきの ろっかーに にもつを あずけました。\n→ Tôi đã gửi hành lý trong tủ khóa ở ga."},{"t":"Từ vựng","q":"「任せる」 có nghĩa là gì?","r":"まかせる","a":["Từ chối","Giấu đi","Giao phó / để cho ai làm","Mượn"],"c":2,"e":"この仕事は田中さんに任せます。\nこの しごとは たなかさんに まかせます。\n→ Tôi giao công việc này cho anh Tanaka."},{"t":"Từ vựng","q":"「誘う」 có nghĩa là gì?","r":"さそう","a":["Cảnh báo","Trả lời","Chia tay","Rủ / mời"],"c":3,"e":"友達を映画に誘いました。\nともだちを えいがに さそいました。\n→ Tôi đã rủ bạn đi xem phim."},{"t":"Từ vựng","q":"「気づく」 có nghĩa là gì?","r":"きづく","a":["Nhận ra / để ý thấy","Quên hẳn","Đồng ý","Chuẩn bị"],"c":0,"e":"駅に着いて、財布がないことに気づきました。\nえきに ついて、さいふが ないことに きづきました。\n→ Đến ga tôi mới nhận ra là không có ví."},{"t":"Từ vựng","q":"「遅れる」 có nghĩa là gì?","r":"おくれる","a":["Đến sớm","Trễ / chậm","Dừng hẳn","Đổi hướng"],"c":1,"e":"電車が十分遅れています。\nでんしゃが じゅっぷん おくれています。\n→ Tàu đang trễ 10 phút."},{"t":"Từ vựng","q":"「訪ねる」 có nghĩa là gì?","r":"たずねる","a":["Đợi","Tiễn","Đến thăm","Gọi điện"],"c":2,"e":"京都にいる友達を訪ねました。\nきょうとに いる ともだちを たずねました。\n→ Tôi đã đến thăm người bạn ở Kyoto."},{"t":"Từ vựng","q":"「迎える」 có nghĩa là gì?","r":"むかえる","a":["Đuổi đi","Gửi đi","Rời khỏi","Đón"],"c":3,"e":"駅まで妹を迎えに行きます。\nえきまで いもうとを むかえに いきます。\n→ Tôi sẽ ra ga đón em gái."},{"t":"Từ vựng","q":"「送る」 có nghĩa là gì?","r":"おくる","a":["Gửi / tiễn","Nhận","Mượn","Sửa"],"c":0,"e":"母に写真を送りました。\nははに しゃしんを おくりました。\n→ Tôi đã gửi ảnh cho mẹ."},{"t":"Từ vựng","q":"「戻る」 có nghĩa là gì?","r":"もどる","a":["Tiến lên","Quay lại / trở về","Chuyển nhà","Ở lại"],"c":1,"e":"忘れ物を取りに家へ戻りました。\nわすれものを とりに いえへ もどりました。\n→ Tôi quay về nhà lấy đồ bỏ quên."},{"t":"Từ vựng","q":"「決まる」 có nghĩa là gì?","r":"きまる","a":["Bị hủy","Bị quên","Được quyết định","Bị thay thế"],"c":2,"e":"旅行の日が決まりました。\nりょこうの ひが きまりました。\n→ Ngày đi du lịch đã được quyết định."},{"t":"Từ vựng","q":"「決める」 có nghĩa là gì?","r":"きめる","a":["So sánh","Tra cứu","Thu thập","Quyết định"],"c":3,"e":"今日中に答えを決めます。\nきょうじゅうに こたえを きめます。\n→ Tôi sẽ quyết định câu trả lời trong hôm nay."},{"t":"Từ vựng","q":"「見つかる」 có nghĩa là gì?","r":"みつかる","a":["Được tìm thấy","Bị mất","Bị hỏng","Bị bán"],"c":0,"e":"なくした鍵が見つかりました。\nなくした かぎが みつかりました。\n→ Chìa khóa bị mất đã được tìm thấy."},{"t":"Từ vựng","q":"「見つける」 có nghĩa là gì?","r":"みつける","a":["Đánh mất","Tìm thấy","Đóng cửa","Trả lại"],"c":1,"e":"駅の近くで安い店を見つけました。\nえきの ちかくで やすい みせを みつけました。\n→ Tôi đã tìm thấy một cửa hàng rẻ gần ga."},{"t":"Từ vựng","q":"「片付ける」 có nghĩa là gì?","r":"かたづける","a":["Làm bẩn","Mở rộng","Dọn dẹp / sắp xếp","Trang trí"],"c":2,"e":"部屋を片付けてから出かけます。\nへやを かたづけてから でかけます。\n→ Tôi dọn phòng rồi mới ra ngoài."},{"t":"Từ vựng","q":"「集める」 có nghĩa là gì?","r":"あつめる","a":["Phân phát","Vứt bỏ","Sửa chữa","Thu thập / sưu tầm"],"c":3,"e":"私は古い切手を集めています。\nわたしは ふるい きってを あつめています。\n→ Tôi đang sưu tầm tem cũ."},{"t":"Từ vựng","q":"「集まる」 có nghĩa là gì?","r":"あつまる","a":["Tập trung / tụ tập","Tản ra","Ngủ","Biến mất"],"c":0,"e":"駅前にたくさんの人が集まっています。\nえきまえに たくさんの ひとが あつまっています。\n→ Nhiều người đang tụ tập trước ga."},{"t":"Từ vựng","q":"「続く」 có nghĩa là gì?","r":"つづく","a":["Kết thúc ngay","Tiếp tục / kéo dài","Bắt đầu lại","Thay đổi"],"c":1,"e":"雨は明日まで続くそうです。\nあめは あしたまで つづくそうです。\n→ Nghe nói mưa sẽ kéo dài đến ngày mai."},{"t":"Từ vựng","q":"「始まる」 có nghĩa là gì?","r":"はじまる","a":["Kết thúc","Tạm dừng","Bắt đầu","Đến muộn"],"c":2,"e":"会議は九時に始まります。\nかいぎは くじに はじまります。\n→ Cuộc họp bắt đầu lúc 9 giờ."},{"t":"Từ vựng","q":"「終わる」 có nghĩa là gì?","r":"おわる","a":["Bắt đầu","Tiếp tục","Chuẩn bị","Kết thúc"],"c":3,"e":"仕事は六時に終わります。\nしごとは ろくじに おわります。\n→ Công việc kết thúc lúc 6 giờ."},{"t":"Từ vựng","q":"「増やす」 có nghĩa là gì?","r":"ふやす","a":["Làm tăng / tăng thêm","Giảm xuống","Chia đôi","Đổi chỗ"],"c":0,"e":"毎月貯金を少しずつ増やしています。\nまいつき ちょきんを すこしずつ ふやしています。\n→ Mỗi tháng tôi tăng tiền tiết kiệm lên một chút."},{"t":"Từ vựng","q":"「減らす」 có nghĩa là gì?","r":"へらす","a":["Tăng lên","Làm giảm / giảm bớt","Giữ nguyên","Đo lường"],"c":1,"e":"甘い物を食べる量を減らします。\nあまいものを たべる りょうを へらします。\n→ Tôi sẽ giảm lượng đồ ngọt ăn vào."},{"t":"Từ vựng","q":"「残る」 có nghĩa là gì?","r":"のこる","a":["Biến mất","Bị bán hết","Còn lại","Được thêm vào"],"c":2,"e":"冷蔵庫にケーキが一つ残っています。\nれいぞうこに けーきが ひとつ のこっています。\n→ Trong tủ lạnh còn lại một cái bánh."},{"t":"Từ vựng","q":"「残す」 có nghĩa là gì?","r":"のこす","a":["Xóa đi","Mượn","Đổi","Để lại / chừa lại"],"c":3,"e":"大事な写真を記念に残します。\nだいじな しゃしんを きねんに のこします。\n→ Tôi giữ lại bức ảnh quan trọng làm kỷ niệm."},{"t":"Từ vựng","q":"「変える」 có nghĩa là gì?","r":"かえる","a":["Thay đổi / đổi","Giữ nguyên","Kết thúc","Quay lại"],"c":0,"e":"予定を来週に変えました。\nよていを らいしゅうに かえました。\n→ Tôi đã đổi kế hoạch sang tuần sau."},{"t":"Từ vựng","q":"「確かめる」 có nghĩa là gì?","r":"たしかめる","a":["Đoán","Kiểm tra / xác nhận","Quên","Từ chối"],"c":1,"e":"住所をもう一度確かめてください。\nじゅうしょを もういちど たしかめてください。\n→ Hãy kiểm tra lại địa chỉ một lần nữa."},{"t":"Từ vựng","q":"「伝える」 có nghĩa là gì?","r":"つたえる","a":["Che giấu","Thu thập","Truyền đạt / báo cho","Lựa chọn"],"c":2,"e":"先生に欠席すると伝えました。\nせんせいに けっせきすると つたえました。\n→ Tôi đã báo với giáo viên rằng mình sẽ nghỉ."},{"t":"Từ vựng","q":"「連れる」 có nghĩa là gì?","r":"つれる","a":["Bỏ lại","Gọi điện","Đón nhận","Dẫn / đưa ai đi cùng"],"c":3,"e":"子どもを病院へ連れて行きました。\nこどもを びょういんへ つれていきました。\n→ Tôi đã đưa con đến bệnh viện."},{"t":"Từ vựng","q":"「相談する」 có nghĩa là gì?","r":"そうだんする","a":["Trao đổi / tham khảo ý kiến","Ra lệnh","Từ chối","Xin lỗi"],"c":0,"e":"進路について先生に相談しました。\nしんろについて せんせいに そうだんしました。\n→ Tôi đã trao đổi với giáo viên về hướng đi tương lai."},{"t":"Từ vựng","q":"「参加する」 có nghĩa là gì?","r":"さんかする","a":["Vắng mặt","Tham gia","Hủy bỏ","Quan sát"],"c":1,"e":"来週のイベントに参加します。\nらいしゅうの いべんとに さんかします。\n→ Tôi sẽ tham gia sự kiện tuần sau."},{"t":"Từ vựng","q":"「出席する」 có nghĩa là gì?","r":"しゅっせきする","a":["Nghỉ vắng","Về sớm","Tham dự / có mặt","Đăng ký"],"c":2,"e":"明日の会議に出席します。\nあしたの かいぎに しゅっせきします。\n→ Tôi sẽ tham dự cuộc họp ngày mai."},{"t":"Từ vựng","q":"「欠席する」 có nghĩa là gì?","r":"けっせきする","a":["Tham dự","Đến sớm","Học thêm","Vắng mặt / nghỉ"],"c":3,"e":"体調が悪くて授業を欠席しました。\nたいちょうが わるくて じゅぎょうを けっせきしました。\n→ Vì không khỏe nên tôi đã nghỉ học."},{"t":"Từ vựng","q":"「変更する」 có nghĩa là gì?","r":"へんこうする","a":["Thay đổi","Xác nhận","Hủy hoàn toàn","Thanh toán"],"c":0,"e":"予約時間を変更したいです。\nよやくじかんを へんこうしたいです。\n→ Tôi muốn thay đổi giờ đặt trước."},{"t":"Từ vựng","q":"「調整する」 có nghĩa là gì?","r":"ちょうせいする","a":["Bỏ qua","Điều chỉnh / sắp xếp","Ghi nhớ","So sánh"],"c":1,"e":"みんなの予定を調整します。\nみんなの よていを ちょうせいします。\n→ Tôi sẽ điều chỉnh lịch của mọi người."},{"t":"Từ vựng","q":"「解決する」 có nghĩa là gì?","r":"かいけつする","a":["Tạo ra","Trì hoãn","Giải quyết","Lặp lại"],"c":2,"e":"この問題を早く解決したいです。\nこの もんだいを はやく かいけつしたいです。\n→ Tôi muốn giải quyết vấn đề này sớm."},{"t":"Từ vựng","q":"「失敗する」 có nghĩa là gì?","r":"しっぱいする","a":["Thành công","Chuẩn bị","Tiếp tục","Thất bại / làm hỏng"],"c":3,"e":"初めての料理は失敗しました。\nはじめての りょうりは しっぱいしました。\n→ Món ăn lần đầu tôi nấu đã thất bại."},{"t":"Từ vựng","q":"「成功する」 có nghĩa là gì?","r":"せいこうする","a":["Thành công","Thất bại","Bị hủy","Bị trễ"],"c":0,"e":"新しい計画が成功しました。\nあたらしい けいかくが せいこうしました。\n→ Kế hoạch mới đã thành công."},{"t":"Từ vựng","q":"「努力する」 có nghĩa là gì?","r":"どりょくする","a":["Từ bỏ","Nỗ lực / cố gắng","Nghỉ ngơi","Phàn nàn"],"c":1,"e":"目標のために毎日努力しています。\nもくひょうの ために まいにち どりょくしています。\n→ Tôi cố gắng mỗi ngày vì mục tiêu."},{"t":"Từ vựng","q":"「安心する」 có nghĩa là gì?","r":"あんしんする","a":["Lo lắng","Tức giận","Yên tâm","Ngạc nhiên"],"c":2,"e":"無事だと聞いて安心しました。\nぶじだと きいて あんしんしました。\n→ Nghe nói bình an nên tôi đã yên tâm."},{"t":"Từ vựng","q":"「心配する」 có nghĩa là gì?","r":"しんぱいする","a":["Yên tâm","Vui mừng","Tin tưởng","Lo lắng"],"c":3,"e":"母は私の体を心配しています。\nははは わたしの からだを しんぱいしています。\n→ Mẹ đang lo cho sức khỏe của tôi."},{"t":"Từ vựng","q":"「驚く」 có nghĩa là gì?","r":"おどろく","a":["Ngạc nhiên","Bình tĩnh","Buồn ngủ","Quên"],"c":0,"e":"ニュースを聞いて驚きました。\nにゅーすを きいて おどろきました。\n→ Tôi đã ngạc nhiên khi nghe tin."},{"t":"Từ vựng","q":"「困る」 có nghĩa là gì?","r":"こまる","a":["Hài lòng","Khó xử / gặp rắc rối","Thành công","Yên tâm"],"c":1,"e":"お金がなくて困っています。\nおかねが なくて こまっています。\n→ Tôi đang khó xử vì không có tiền."},{"t":"Từ vựng","q":"「喜ぶ」 có nghĩa là gì?","r":"よろこぶ","a":["Tức giận","Lo lắng","Vui mừng","Khóc"],"c":2,"e":"プレゼントをもらって妹が喜びました。\nぷれぜんとを もらって いもうとが よろこびました。\n→ Em gái tôi vui mừng khi nhận quà."},{"t":"Từ vựng","q":"「怒る」 có nghĩa là gì?","r":"おこる","a":["Cười","Vui mừng","Yên tâm","Tức giận"],"c":3,"e":"父は約束を破ると怒ります。\nちちは やくそくを やぶると おこります。\n→ Bố sẽ giận nếu phá lời hứa."},{"t":"Từ vựng","q":"「笑う」 có nghĩa là gì?","r":"わらう","a":["Cười","Khóc","Tức giận","Im lặng"],"c":0,"e":"その話を聞いてみんなが笑いました。\nその はなしを きいて みんなが わらいました。\n→ Mọi người đã cười khi nghe câu chuyện đó."},{"t":"Từ vựng","q":"「泣く」 có nghĩa là gì?","r":"なく","a":["Cười","Khóc","Ngủ","Chạy"],"c":1,"e":"子どもが大きな声で泣いています。\nこどもが おおきな こえで ないています。\n→ Đứa trẻ đang khóc to."},{"t":"Từ vựng","q":"「間もなく」 có nghĩa là gì?","r":"まもなく","a":["Rất lâu sau","Hôm qua","Sắp / chẳng bao lâu nữa","Thỉnh thoảng"],"c":2,"e":"電車は間もなく到着します。\nでんしゃは まもなく とうちゃくします。\n→ Tàu sắp đến."},{"t":"Từ vựng","q":"「そろそろ」 có nghĩa là gì?","r":"そろそろ","a":["Ngay lập tức","Không bao giờ","Bất ngờ","Sắp đến lúc / từ từ"],"c":3,"e":"そろそろ帰りましょう。\nそろそろ かえりましょう。\n→ Sắp đến lúc về rồi."},{"t":"Từ vựng","q":"「なるべく」 có nghĩa là gì?","r":"なるべく","a":["Cố gắng hết mức có thể","Hoàn toàn không","Chỉ một lần","Đột nhiên"],"c":0,"e":"なるべく早く来てください。\nなるべく はやく きてください。\n→ Hãy cố gắng đến sớm nhất có thể."},{"t":"Từ vựng","q":"「たいてい」 có nghĩa là gì?","r":"たいてい","a":["Hiếm khi","Thường / thường thì","Không bao giờ","Ngay lập tức"],"c":1,"e":"朝はたいていパンを食べます。\nあさは たいてい ぱんを たべます。\n→ Buổi sáng tôi thường ăn bánh mì."},{"t":"Từ vựng","q":"「かなり」 có nghĩa là gì?","r":"かなり","a":["Một chút","Hoàn toàn không","Khá / tương đối nhiều","Bình thường"],"c":2,"e":"今日はかなり暑いです。\nきょうは かなり あついです。\n→ Hôm nay khá nóng."},{"t":"Từ vựng","q":"「特に」 có nghĩa là gì?","r":"とくに","a":["Ngẫu nhiên","Hiếm khi","Cuối cùng","Đặc biệt là"],"c":3,"e":"私は果物、特にいちごが好きです。\nわたしは くだもの、とくに いちごが すきです。\n→ Tôi thích trái cây, đặc biệt là dâu tây."},{"t":"Từ vựng","q":"「例えば」 có nghĩa là gì?","r":"たとえば","a":["Ví dụ như","Tóm lại","Đột nhiên","Gần đây"],"c":0,"e":"例えば、この方法があります。\nたとえば、この ほうほうが あります。\n→ Ví dụ, có phương pháp này."},{"t":"Từ vựng","q":"「結局」 có nghĩa là gì?","r":"けっきょく","a":["Ban đầu","Rốt cuộc / cuối cùng","Ngay lập tức","Có lẽ"],"c":1,"e":"結局、電車で行くことにしました。\nけっきょく、でんしゃで いくことに しました。\n→ Cuối cùng tôi quyết định đi bằng tàu."},{"t":"Từ vựng","q":"「突然」 có nghĩa là gì?","r":"とつぜん","a":["Dần dần","Thường xuyên","Đột nhiên","Cuối cùng"],"c":2,"e":"突然雨が降り始めました。\nとつぜん あめが ふりはじめました。\n→ Trời đột nhiên bắt đầu mưa."},{"t":"Từ vựng","q":"「以前」 có nghĩa là gì?","r":"いぜん","a":["Sau này","Hiện tại","Ngay lúc này","Trước đây / trước đó"],"c":3,"e":"以前、この近くに住んでいました。\nいぜん、この ちかくに すんでいました。\n→ Trước đây tôi sống gần đây."},{"t":"Từ vựng","q":"「途中」 có nghĩa là gì?","r":"とちゅう","a":["Giữa đường / đang giữa chừng","Điểm bắt đầu","Điểm cuối","Ngày mai"],"c":0,"e":"会社へ行く途中で友達に会いました。\nかいしゃへ いく とちゅうで ともだちに あいました。\n→ Tôi gặp bạn trên đường đi làm."},{"t":"Từ vựng","q":"「場合」 có nghĩa là gì?","r":"ばあい","a":["Nguyên nhân","Trường hợp","Kết quả","Phương pháp"],"c":1,"e":"雨の場合は中止です。\nあめの ばあいは ちゅうしです。\n→ Trong trường hợp mưa thì sẽ hủy."},{"t":"Từ vựng","q":"「理由」 có nghĩa là gì?","r":"りゆう","a":["Kết quả","Kế hoạch","Lý do","Thói quen"],"c":2,"e":"遅れた理由を説明してください。\nおくれた りゆうを せつめいしてください。\n→ Hãy giải thích lý do bạn đến muộn."},{"t":"Từ vựng","q":"「結果」 có nghĩa là gì?","r":"けっか","a":["Nguyên nhân","Lý do","Mục đích","Kết quả"],"c":3,"e":"試験の結果は来週分かります。\nしけんの けっかは らいしゅう わかります。\n→ Kết quả kỳ thi sẽ biết vào tuần sau."},{"t":"Từ vựng","q":"「方法」 có nghĩa là gì?","r":"ほうほう","a":["Phương pháp / cách thức","Kết quả","Trường hợp","Quan hệ"],"c":0,"e":"もっといい方法を考えましょう。\nもっと いい ほうほうを かんがえましょう。\n→ Hãy nghĩ một phương pháp tốt hơn."},{"t":"Từ vựng","q":"「目的」 có nghĩa là gì?","r":"もくてき","a":["Nguyên nhân","Mục đích","Kết quả","Thói quen"],"c":1,"e":"旅行の目的は日本語の勉強です。\nりょこうの もくてきは にほんごの べんきょうです。\n→ Mục đích chuyến đi là học tiếng Nhật."},{"t":"Từ vựng","q":"「都合」 có nghĩa là gì?","r":"つごう","a":["Sở thích","Kinh nghiệm","Sự thuận tiện / tình hình sắp xếp","Kết quả"],"c":2,"e":"明日は都合が悪いです。\nあしたは つごうが わるいです。\n→ Ngày mai tôi không tiện."},{"t":"Từ vựng","q":"「習慣」 có nghĩa là gì?","r":"しゅうかん","a":["Lời hứa","Kế hoạch","Mục đích","Thói quen"],"c":3,"e":"毎朝走るのが私の習慣です。\nまいあさ はしるのが わたしの しゅうかんです。\n→ Chạy mỗi sáng là thói quen của tôi."}];
-let BANK=[...(window.N3_QUESTION_BANK||[]),...EXTRA_VOCAB].map((q,i)=>({...q,id:q.id||('q'+String(i+1).padStart(3,'0'))}));
+const MORE_N3_VOCAB=[{"t":"Từ vựng","q":"「扱う」 có nghĩa là gì?","r":"あつかう","a":["Biểu thị / thể hiện","Xử lý / sử dụng","Tiến lên / tiến triển","Thủ tục"],"c":1,"e":"この機械は丁寧に扱ってください。\nこの きかいは ていねいに あつかってください。\n→ Hãy sử dụng chiếc máy này cẩn thận."},{"t":"Từ vựng","q":"「表す」 có nghĩa là gì?","r":"あらわす","a":["Tránh","Tình hình / trạng thái","Biểu thị / thể hiện","Quan hệ / liên quan"],"c":2,"e":"この数字は売上の変化を表しています。\nこの すうじは うりあげの へんかを あらわしています。\n→ Con số này thể hiện sự thay đổi doanh thu."},{"t":"Từ vựng","q":"「含む」 có nghĩa là gì?","r":"ふくむ","a":["Tiến hành / thúc đẩy","Điều kiện","Kiến thức","Bao gồm / chứa"],"c":3,"e":"この料金には税金が含まれています。\nこの りょうきんには ぜいきんが ふくまれています。\n→ Mức phí này đã bao gồm thuế."},{"t":"Từ vựng","q":"「防ぐ」 có nghĩa là gì?","r":"ふせぐ","a":["Ngăn chặn","Ảnh hưởng","Phụ trách","Mức độ"],"c":0,"e":"事故を防ぐために確認してください。\nじこを ふせぐために かくにんしてください。\n→ Hãy kiểm tra để ngăn ngừa tai nạn."},{"t":"Từ vựng","q":"「避ける」 có nghĩa là gì?","r":"さける","a":["Đối tượng","Tránh","Kinh nghiệm","Phạm vi"],"c":1,"e":"混んでいる時間を避けて出発します。\nこんでいる じかんを さけて しゅっぱつします。\n→ Tôi sẽ xuất phát tránh giờ đông."},{"t":"Từ vựng","q":"「認める」 có nghĩa là gì?","r":"みとめる","a":["Đơn xin / việc đăng ký","Đặc điểm","Công nhận / thừa nhận","Thái độ"],"c":2,"e":"会社は彼の努力を認めました。\nかいしゃは かれの どりょくを みとめました。\n→ Công ty đã công nhận nỗ lực của anh ấy."},{"t":"Từ vựng","q":"「求める」 có nghĩa là gì?","r":"もとめる","a":["Cơ hội","Tỷ lệ","Xác nhận / kiểm tra","Yêu cầu / tìm kiếm"],"c":3,"e":"お客様はより良いサービスを求めています。\nおきゃくさまは よりよい さーびすを もとめています。\n→ Khách hàng mong muốn dịch vụ tốt hơn."},{"t":"Từ vựng","q":"「進める」 có nghĩa là gì?","r":"すすめる","a":["Tiến hành / thúc đẩy","Kỹ thuật / công nghệ","Trách nhiệm","Chuẩn bị"],"c":0,"e":"計画を予定どおり進めます。\nけいかくを よていどおり すすめます。\n→ Tôi sẽ tiến hành kế hoạch đúng dự kiến."},{"t":"Từ vựng","q":"「進む」 có nghĩa là gì?","r":"すすむ","a":["Trung bình","Tiến lên / tiến triển","Đề xuất","Có thể / khả thi"],"c":1,"e":"工事は順調に進んでいます。\nこうじは じゅんちょうに すすんでいます。\n→ Công trình đang tiến triển thuận lợi."},{"t":"Từ vựng","q":"「生じる」 có nghĩa là gì?","r":"しょうじる","a":["Hạn chế / giới hạn","Báo cáo","Phát sinh","Bao gồm / chứa"],"c":2,"e":"問題が生じた場合は連絡してください。\nもんだいが しょうじた ばあいは れんらくしてください。\n→ Nếu phát sinh vấn đề hãy liên lạc."},{"t":"Từ vựng","q":"「影響」 có nghĩa là gì?","r":"えいきょう","a":["Ý kiến","Cần thiết","Công nhận / thừa nhận","Ảnh hưởng"],"c":3,"e":"天気は試合に大きな影響を与えました。\nてんきは しあいに おおきな えいきょうを あたえました。\n→ Thời tiết đã ảnh hưởng lớn đến trận đấu."},{"t":"Từ vựng","q":"「状況」 có nghĩa là gì?","r":"じょうきょう","a":["Tình hình / trạng thái","Liên lạc","Biểu thị / thể hiện","Tiến lên / tiến triển"],"c":0,"e":"現在の状況を説明してください。\nげんざいの じょうきょうを せつめいしてください。\n→ Hãy giải thích tình hình hiện tại."},{"t":"Từ vựng","q":"「内容」 có nghĩa là gì?","r":"ないよう","a":["Sử dụng","Nội dung","Tránh","Tình hình / trạng thái"],"c":1,"e":"メールの内容を確認しました。\nめーるの ないようを かくにんしました。\n→ Tôi đã kiểm tra nội dung email."},{"t":"Từ vựng","q":"「対象」 có nghĩa là gì?","r":"たいしょう","a":["Xử lý / sử dụng","Tiến hành / thúc đẩy","Đối tượng","Thủ tục"],"c":2,"e":"このサービスは学生が対象です。\nこの さーびすは がくせいが たいしょうです。\n→ Dịch vụ này dành cho học sinh/sinh viên."},{"t":"Từ vựng","q":"「条件」 có nghĩa là gì?","r":"じょうけん","a":["Ngăn chặn","Ảnh hưởng","Quan hệ / liên quan","Điều kiện"],"c":3,"e":"応募の条件を確認してください。\nおうぼの じょうけんを かくにんしてください。\n→ Hãy kiểm tra điều kiện ứng tuyển."},{"t":"Từ vựng","q":"「手続き」 có nghĩa là gì?","r":"てつづき","a":["Thủ tục","Yêu cầu / tìm kiếm","Đối tượng","Kiến thức"],"c":0,"e":"引っ越しの手続きをしました。\nひっこしの てつづきを しました。\n→ Tôi đã làm thủ tục chuyển nhà."},{"t":"Từ vựng","q":"「申請」 có nghĩa là gì?","r":"しんせい","a":["Phát sinh","Đơn xin / việc đăng ký","Phụ trách","Mức độ"],"c":1,"e":"ビザの申請をしました。\nびざの しんせいを しました。\n→ Tôi đã nộp đơn xin visa."},{"t":"Từ vựng","q":"「担当」 có nghĩa là gì?","r":"たんとう","a":["Nội dung","Kinh nghiệm","Phụ trách","Phạm vi"],"c":2,"e":"この仕事は私が担当します。\nこの しごとは わたしが たんとうします。\n→ Tôi phụ trách công việc này."},{"t":"Từ vựng","q":"「関係」 có nghĩa là gì?","r":"かんけい","a":["Thủ tục","Đặc điểm","Thái độ","Quan hệ / liên quan"],"c":3,"e":"この問題は私には関係ありません。\nこの もんだいは わたしには かんけいありません。\n→ Vấn đề này không liên quan đến tôi."},{"t":"Từ vựng","q":"「機会」 có nghĩa là gì?","r":"きかい","a":["Cơ hội","Quan hệ / liên quan","Tỷ lệ","Xác nhận / kiểm tra"],"c":0,"e":"日本人と話す機会が増えました。\nにほんじんと はなす きかいが ふえました。\n→ Cơ hội nói chuyện với người Nhật đã tăng lên."},{"t":"Từ vựng","q":"「経験」 có nghĩa là gì?","r":"けいけん","a":["Kỹ thuật / công nghệ","Kinh nghiệm","Trách nhiệm","Chuẩn bị"],"c":1,"e":"海外で働いた経験があります。\nかいがいで はたらいた けいけんが あります。\n→ Tôi có kinh nghiệm làm việc ở nước ngoài."},{"t":"Từ vựng","q":"「知識」 có nghĩa là gì?","r":"ちしき","a":["Trung bình","Đề xuất","Kiến thức","Có thể / khả thi"],"c":2,"e":"仕事には専門的な知識が必要です。\nしごとには せんもんてきな ちしきが ひつようです。\n→ Công việc cần kiến thức chuyên môn."},{"t":"Từ vựng","q":"「技術」 có nghĩa là gì?","r":"ぎじゅつ","a":["Hạn chế / giới hạn","Báo cáo","Bao gồm / chứa","Kỹ thuật / công nghệ"],"c":3,"e":"新しい技術を学んでいます。\nあたらしい ぎじゅつを まなんでいます。\n→ Tôi đang học kỹ thuật mới."},{"t":"Từ vựng","q":"「特徴」 có nghĩa là gì?","r":"とくちょう","a":["Đặc điểm","Ý kiến","Cần thiết","Công nhận / thừa nhận"],"c":0,"e":"この商品の特徴を説明します。\nこの しょうひんの とくちょうを せつめいします。\n→ Tôi sẽ giải thích đặc điểm của sản phẩm này."},{"t":"Từ vựng","q":"「程度」 có nghĩa là gì?","r":"ていど","a":["Liên lạc","Mức độ","Biểu thị / thể hiện","Tiến lên / tiến triển"],"c":1,"e":"一週間に三回程度運動します。\nいっしゅうかんに さんかい ていど うんどうします。\n→ Tôi tập thể dục khoảng 3 lần một tuần."},{"t":"Từ vựng","q":"「平均」 có nghĩa là gì?","r":"へいきん","a":["Sử dụng","Tránh","Trung bình","Tình hình / trạng thái"],"c":2,"e":"平均気温は二十度です。\nへいきん きおんは にじゅうどです。\n→ Nhiệt độ trung bình là 20 độ."},{"t":"Từ vựng","q":"「割合」 có nghĩa là gì?","r":"わりあい","a":["Xử lý / sử dụng","Tiến hành / thúc đẩy","Điều kiện","Tỷ lệ"],"c":3,"e":"外国人の割合が増えています。\nがいこくじんの わりあいが ふえています。\n→ Tỷ lệ người nước ngoài đang tăng."},{"t":"Từ vựng","q":"「範囲」 có nghĩa là gì?","r":"はんい","a":["Phạm vi","Ngăn chặn","Ảnh hưởng","Phụ trách"],"c":0,"e":"試験の範囲を確認しました。\nしけんの はんいを かくにんしました。\n→ Tôi đã kiểm tra phạm vi kỳ thi."},{"t":"Từ vựng","q":"「制限」 có nghĩa là gì?","r":"せいげん","a":["Yêu cầu / tìm kiếm","Hạn chế / giới hạn","Đối tượng","Kinh nghiệm"],"c":1,"e":"この道路には速度制限があります。\nこの どうろには そくど せいげんが あります。\n→ Con đường này có giới hạn tốc độ."},{"t":"Từ vựng","q":"「責任」 có nghĩa là gì?","r":"せきにん","a":["Phát sinh","Đơn xin / việc đăng ký","Trách nhiệm","Đặc điểm"],"c":2,"e":"自分の仕事に責任を持ってください。\nじぶんの しごとに せきにんを もってください。\n→ Hãy có trách nhiệm với công việc của mình."},{"t":"Từ vựng","q":"「態度」 có nghĩa là gì?","r":"たいど","a":["Nội dung","Cơ hội","Tỷ lệ","Thái độ"],"c":3,"e":"彼の態度はとても丁寧でした。\nかれの たいどは とても ていねいでした。\n→ Thái độ của anh ấy rất lịch sự."},{"t":"Từ vựng","q":"「意見」 có nghĩa là gì?","r":"いけん","a":["Ý kiến","Thủ tục","Kỹ thuật / công nghệ","Trách nhiệm"],"c":0,"e":"あなたの意見を聞かせてください。\nあなたの いけんを きかせてください。\n→ Hãy cho tôi biết ý kiến của bạn."},{"t":"Từ vựng","q":"「提案」 có nghĩa là gì?","r":"ていあん","a":["Quan hệ / liên quan","Đề xuất","Trung bình","Xác nhận / kiểm tra"],"c":1,"e":"新しい方法を提案しました。\nあたらしい ほうほうを ていあんしました。\n→ Tôi đã đề xuất một phương pháp mới."},{"t":"Từ vựng","q":"「確認」 có nghĩa là gì?","r":"かくにん","a":["Kiến thức","Hạn chế / giới hạn","Xác nhận / kiểm tra","Chuẩn bị"],"c":2,"e":"予約内容を確認してください。\nよやく ないようを かくにんしてください。\n→ Hãy kiểm tra nội dung đặt chỗ."},{"t":"Từ vựng","q":"「連絡」 có nghĩa là gì?","r":"れんらく","a":["Mức độ","Ý kiến","Có thể / khả thi","Liên lạc"],"c":3,"e":"到着したら連絡してください。\nとうちゃくしたら れんらくしてください。\n→ Khi đến nơi hãy liên lạc."},{"t":"Từ vựng","q":"「報告」 có nghĩa là gì?","r":"ほうこく","a":["Báo cáo","Phạm vi","Liên lạc","Bao gồm / chứa"],"c":0,"e":"結果を上司に報告しました。\nけっかを じょうしに ほうこくしました。\n→ Tôi đã báo cáo kết quả với cấp trên."},{"t":"Từ vựng","q":"「準備」 có nghĩa là gì?","r":"じゅんび","a":["Thái độ","Chuẩn bị","Cần thiết","Công nhận / thừa nhận"],"c":1,"e":"旅行の準備はできましたか。\nりょこうの じゅんびは できましたか。\n→ Bạn đã chuẩn bị xong cho chuyến đi chưa?"},{"t":"Từ vựng","q":"「利用」 có nghĩa là gì?","r":"りよう","a":["Xác nhận / kiểm tra","Biểu thị / thể hiện","Sử dụng","Tiến lên / tiến triển"],"c":2,"e":"このサービスは無料で利用できます。\nこの さーびすは むりょうで りようできます。\n→ Dịch vụ này có thể sử dụng miễn phí."},{"t":"Từ vựng","q":"「必要」 có nghĩa là gì?","r":"ひつよう","a":["Chuẩn bị","Tránh","Tình hình / trạng thái","Cần thiết"],"c":3,"e":"申し込みには身分証明書が必要です。\nもうしこみには みぶんしょうめいしょが ひつようです。\n→ Đăng ký cần giấy tờ tùy thân."},{"t":"Từ vựng","q":"「可能」 có nghĩa là gì?","r":"かのう","a":["Có thể / khả thi","Xử lý / sử dụng","Tiến hành / thúc đẩy","Điều kiện"],"c":0,"e":"オンラインで予約することが可能です。\nおんらいんで よやくすることが かのうです。\n→ Có thể đặt chỗ trực tuyến."}];
+const EXTRA_N3_KANJI=[{"t":"Kanji","q":"Cách đọc của 「環境」 là gì?","r":"Môi trường","a":["かんきょう","けいざい","こうつう","ほうほう"],"c":0,"e":"環境を守ることは大切です。\nかんきょうを まもることは たいせつです。\n→ Bảo vệ môi trường là điều quan trọng."},{"t":"Kanji","q":"Cách đọc của 「経済」 là gì?","r":"Kinh tế","a":["ほうりつ","けいざい","けっか","ちしき"],"c":1,"e":"日本の経済について勉強しています。\nにほんの けいざいについて べんきょうしています。\n→ Tôi đang học về kinh tế Nhật Bản."},{"t":"Kanji","q":"Cách đọc của 「社会」 là gì?","r":"Xã hội","a":["じこ","かんけい","しゃかい","せきにん"],"c":2,"e":"社会の変化はとても速いです。\nしゃかいの へんかは とても はやいです。\n→ Sự thay đổi của xã hội rất nhanh."},{"t":"Kanji","q":"Cách đọc của 「制度」 là gì?","r":"Chế độ / hệ thống","a":["もくてき","ぎじゅつ","しっぱい","せいど"],"c":3,"e":"新しい制度が始まりました。\nあたらしい せいどが はじまりました。\n→ Một chế độ mới đã bắt đầu."},{"t":"Kanji","q":"Cách đọc của 「法律」 là gì?","r":"Pháp luật","a":["ほうりつ","けいけん","どりょく","ほうこく"],"c":0,"e":"法律を守らなければなりません。\nほうりつを まもらなければ なりません。\n→ Phải tuân thủ pháp luật."},{"t":"Kanji","q":"Cách đọc của 「地域」 là gì?","r":"Khu vực / vùng","a":["のうりょく","ちいき","かくにん","ちゅうい"],"c":1,"e":"この地域は冬に雪が多いです。\nこの ちいきは ふゆに ゆきが おおいです。\n→ Khu vực này có nhiều tuyết vào mùa đông."},{"t":"Kanji","q":"Cách đọc của 「交通」 là gì?","r":"Giao thông","a":["せいこう","そうだん","こうつう","じょうたい"],"c":2,"e":"朝は交通がとても混みます。\nあさは こうつうが とても こみます。\n→ Buổi sáng giao thông rất đông."},{"t":"Kanji","q":"Cách đọc của 「事故」 là gì?","r":"Tai nạn","a":["れんらく","よてい","ないよう","じこ"],"c":3,"e":"駅の近くで事故がありました。\nえきの ちかくで じこが ありました。\n→ Đã có tai nạn gần ga."},{"t":"Kanji","q":"Cách đọc của 「原因」 là gì?","r":"Nguyên nhân","a":["げんいん","せつめい","りよう","へいきん"],"c":0,"e":"事故の原因を調べています。\nじこの げんいんを しらべています。\n→ Đang điều tra nguyên nhân tai nạn."},{"t":"Kanji","q":"Cách đọc của 「結果」 là gì?","r":"Kết quả","a":["じゅんび","けっか","たいしょう","たいど"],"c":1,"e":"試験の結果が届きました。\nしけんの けっかが とどきました。\n→ Kết quả kỳ thi đã được gửi tới."},{"t":"Kanji","q":"Cách đọc của 「目的」 là gì?","r":"Mục đích","a":["じょうけん","わりあい","もくてき","けいざい"],"c":2,"e":"旅行の目的を説明してください。\nりょこうの もくてきを せつめいしてください。\n→ Hãy giải thích mục đích chuyến đi."},{"t":"Kanji","q":"Cách đọc của 「方法」 là gì?","r":"Phương pháp","a":["はんい","いけん","ほうりつ","ほうほう"],"c":3,"e":"もっと簡単な方法があります。\nもっと かんたんな ほうほうが あります。\n→ Có một phương pháp đơn giản hơn."},{"t":"Kanji","q":"Cách đọc của 「関係」 là gì?","r":"Quan hệ / liên quan","a":["かんけい","きかい","しゃかい","じこ"],"c":0,"e":"仕事と生活の関係を考えます。\nしごとと せいかつの かんけいを かんがえます。\n→ Tôi suy nghĩ về mối quan hệ giữa công việc và cuộc sống."},{"t":"Kanji","q":"Cách đọc của 「経験」 là gì?","r":"Kinh nghiệm","a":["かんきょう","けいけん","ちいき","もくてき"],"c":1,"e":"日本で働いた経験があります。\nにほんで はたらいた けいけんが あります。\n→ Tôi có kinh nghiệm làm việc ở Nhật."},{"t":"Kanji","q":"Cách đọc của 「知識」 là gì?","r":"Kiến thức","a":["せいど","げんいん","ちしき","けいけん"],"c":2,"e":"日本語の知識を増やしたいです。\nにほんごの ちしきを ふやしたいです。\n→ Tôi muốn tăng kiến thức tiếng Nhật."},{"t":"Kanji","q":"Cách đọc của 「技術」 là gì?","r":"Kỹ thuật","a":["こうつう","ほうほう","せきにん","ぎじゅつ"],"c":3,"e":"この仕事には高い技術が必要です。\nこの しごとには たかい ぎじゅつが ひつようです。\n→ Công việc này cần kỹ thuật cao."},{"t":"Kanji","q":"Cách đọc của 「能力」 là gì?","r":"Năng lực","a":["のうりょく","けっか","ちしき","しっぱい"],"c":0,"e":"自分の能力を伸ばしたいです。\nじぶんの のうりょくを のばしたいです。\n→ Tôi muốn phát triển năng lực của mình."},{"t":"Kanji","q":"Cách đọc của 「責任」 là gì?","r":"Trách nhiệm","a":["かんけい","せきにん","どりょく","ほうこく"],"c":1,"e":"仕事には責任があります。\nしごとには せきにんが あります。\n→ Công việc đi kèm trách nhiệm."},{"t":"Kanji","q":"Cách đọc của 「努力」 là gì?","r":"Nỗ lực","a":["ぎじゅつ","かくにん","どりょく","ちゅうい"],"c":2,"e":"毎日の努力が大切です。\nまいにちの どりょくが たいせつです。\n→ Nỗ lực mỗi ngày rất quan trọng."},{"t":"Kanji","q":"Cách đọc của 「成功」 là gì?","r":"Thành công","a":["どりょく","そうだん","じょうたい","せいこう"],"c":3,"e":"計画は成功しました。\nけいかくは せいこうしました。\n→ Kế hoạch đã thành công."},{"t":"Kanji","q":"Cách đọc của 「失敗」 là gì?","r":"Thất bại","a":["しっぱい","れんらく","よてい","ないよう"],"c":0,"e":"失敗から学ぶことも大切です。\nしっぱいから まなぶことも たいせつです。\n→ Học từ thất bại cũng rất quan trọng."},{"t":"Kanji","q":"Cách đọc của 「確認」 là gì?","r":"Xác nhận","a":["せつめい","かくにん","りよう","へいきん"],"c":1,"e":"内容を確認してください。\nないようを かくにんしてください。\n→ Hãy xác nhận nội dung."},{"t":"Kanji","q":"Cách đọc của 「連絡」 là gì?","r":"Liên lạc","a":["じゅんび","たいしょう","れんらく","たいど"],"c":2,"e":"後で連絡します。\nあとで れんらくします。\n→ Tôi sẽ liên lạc sau."},{"t":"Kanji","q":"Cách đọc của 「報告」 là gì?","r":"Báo cáo","a":["じょうけん","わりあい","けいざい","ほうこく"],"c":3,"e":"上司に結果を報告します。\nじょうしに けっかを ほうこくします。\n→ Tôi báo cáo kết quả với cấp trên."},{"t":"Kanji","q":"Cách đọc của 「相談」 là gì?","r":"Trao đổi / tư vấn","a":["そうだん","はんい","いけん","ほうりつ"],"c":0,"e":"先生に相談しました。\nせんせいに そうだんしました。\n→ Tôi đã trao đổi với giáo viên."},{"t":"Kanji","q":"Cách đọc của 「説明」 là gì?","r":"Giải thích","a":["きかい","せつめい","しゃかい","じこ"],"c":1,"e":"使い方を説明します。\nつかいかたを せつめいします。\n→ Tôi giải thích cách sử dụng."},{"t":"Kanji","q":"Cách đọc của 「注意」 là gì?","r":"Chú ý","a":["かんきょう","ちいき","ちゅうい","もくてき"],"c":2,"e":"車に注意してください。\nくるまに ちゅういしてください。\n→ Hãy chú ý xe cộ."},{"t":"Kanji","q":"Cách đọc của 「予定」 là gì?","r":"Dự định / lịch trình","a":["せいど","げんいん","けいけん","よてい"],"c":3,"e":"明日の予定を確認します。\nあしたの よていを かくにんします。\n→ Tôi kiểm tra lịch ngày mai."},{"t":"Kanji","q":"Cách đọc của 「準備」 là gì?","r":"Chuẩn bị","a":["じゅんび","こうつう","ほうほう","のうりょく"],"c":0,"e":"旅行の準備をします。\nりょこうの じゅんびを します。\n→ Tôi chuẩn bị cho chuyến đi."},{"t":"Kanji","q":"Cách đọc của 「状態」 là gì?","r":"Trạng thái","a":["けっか","じょうたい","ちしき","せいこう"],"c":1,"e":"機械の状態を確認します。\nきかいの じょうたいを かくにんします。\n→ Tôi kiểm tra trạng thái máy."},{"t":"Kanji","q":"Cách đọc của 「利用」 là gì?","r":"Sử dụng","a":["かんけい","せきにん","りよう","れんらく"],"c":2,"e":"図書館を利用します。\nとしょかんを りようします。\n→ Tôi sử dụng thư viện."},{"t":"Kanji","q":"Cách đọc của 「条件」 là gì?","r":"Điều kiện","a":["ぎじゅつ","しっぱい","せつめい","じょうけん"],"c":3,"e":"参加の条件を確認してください。\nさんかの じょうけんを かくにんしてください。\n→ Hãy kiểm tra điều kiện tham gia."},{"t":"Kanji","q":"Cách đọc của 「内容」 là gì?","r":"Nội dung","a":["ないよう","どりょく","ほうこく","じゅんび"],"c":0,"e":"メールの内容を読みました。\nめーるの ないようを よみました。\n→ Tôi đã đọc nội dung email."},{"t":"Kanji","q":"Cách đọc của 「対象」 là gì?","r":"Đối tượng","a":["かくにん","たいしょう","ちゅうい","じょうけん"],"c":1,"e":"この制度の対象は学生です。\nこの せいどの たいしょうは がくせいです。\n→ Đối tượng của chế độ này là học sinh/sinh viên."},{"t":"Kanji","q":"Cách đọc của 「範囲」 là gì?","r":"Phạm vi","a":["そうだん","じょうたい","はんい","へいきん"],"c":2,"e":"試験の範囲は広いです。\nしけんの はんいは ひろいです。\n→ Phạm vi kỳ thi rộng."},{"t":"Kanji","q":"Cách đọc của 「平均」 là gì?","r":"Trung bình","a":["よてい","ないよう","たいど","へいきん"],"c":3,"e":"平均点は七十点でした。\nへいきんてんは ななじゅってんでした。\n→ Điểm trung bình là 70."},{"t":"Kanji","q":"Cách đọc của 「割合」 là gì?","r":"Tỷ lệ","a":["わりあい","りよう","へいきん","けいざい"],"c":0,"e":"若い人の割合が増えています。\nわかい ひとの わりあいが ふえています。\n→ Tỷ lệ người trẻ đang tăng."},{"t":"Kanji","q":"Cách đọc của 「機会」 là gì?","r":"Cơ hội","a":["たいしょう","きかい","いけん","ほうりつ"],"c":1,"e":"話す機会が増えました。\nはなす きかいが ふえました。\n→ Cơ hội nói chuyện đã tăng."},{"t":"Kanji","q":"Cách đọc của 「態度」 là gì?","r":"Thái độ","a":["わりあい","しゃかい","たいど","じこ"],"c":2,"e":"彼の態度は丁寧です。\nかれの たいどは ていねいです。\n→ Thái độ của anh ấy lịch sự."},{"t":"Kanji","q":"Cách đọc của 「意見」 là gì?","r":"Ý kiến","a":["かんきょう","ちいき","もくてき","いけん"],"c":3,"e":"自分の意見を言いました。\nじぶんの いけんを いいました。\n→ Tôi đã nói ý kiến của mình."}];
+let BANK=[...(window.N3_QUESTION_BANK||[]),...EXTRA_VOCAB,...MORE_N3_VOCAB,...EXTRA_N3_KANJI].map((q,i)=>({...q,id:q.id||('q'+String(i+1).padStart(3,'0'))}));
 let state=load();
 let selectedCategory='Tất cả', selectedLength=10;
 let session=[],pos=0,answered=false,opts=[],score=0,combo=0,maxCombo=0,correct=0,sessionXp=0,wrongNow=[],lastSpokenText='';
 
-function defaultState(){return{total:0,correct:0,xp:0,streak:0,lastStudy:'',daily:{date:TODAY(),done:0,correct:0},cats:{},wrong:{}}}
+function defaultState(){return{total:0,correct:0,xp:0,streak:0,lastStudy:'',daily:{date:TODAY(),done:0,correct:0},cats:{},wrong:{},flash:{}}}
 function load(){try{return Object.assign(defaultState(),JSON.parse(localStorage.getItem(STORE)||'{}'))}catch{return defaultState()}}
 function save(){localStorage.setItem(STORE,JSON.stringify(state))}
 function ensureDay(){
   if(!state.daily||state.daily.date!==TODAY())state.daily={date:TODAY(),done:0,correct:0};
-  state.cats=state.cats||{};state.wrong=state.wrong||{};
+  state.cats=state.cats||{};state.wrong=state.wrong||{};state.flash=state.flash||{};
 }
 function touchStreak(){
   const today=TODAY();if(state.lastStudy===today)return;
@@ -192,7 +263,7 @@ function setTheme(theme){document.documentElement.dataset.theme=theme;localStora
 $('themeBtn').onclick=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
 setTheme(localStorage.getItem('lan_theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
 
-const screens=['home','practice','review','progress','quiz','result'];
+const screens=['home','practice','review','progress','flashcard','quiz','result'];
 function showScreen(name){
   screens.forEach(s=>$(s+'Screen').classList.toggle('hide',s!==name));
   const main=['home','practice','review','progress'].includes(name);$('mainTop').classList.toggle('hide',!main);$('bottomNav').classList.toggle('hide',!main);
@@ -206,7 +277,7 @@ function renderHome(){
   ensureDay();const pct=Math.min(100,Math.round(state.daily.done/10*100));
   $('dailyText').textContent=`${state.daily.done} / 10 câu hôm nay`;$('dailyPct').textContent=pct+'%';$('dailyBar').style.width=pct+'%';
   $('statTotal').textContent=state.total||0;$('statAccuracy').textContent=accuracy(state.total,state.correct)+'%';$('statXp').textContent=state.xp||0;$('statStreak').textContent=(state.streak||0)+' 🔥';
-  $('wrongMeta').textContent=Object.keys(state.wrong||{}).length+' CÂU';$('bankCount').textContent=BANK.length?BANK.length+' câu trong kho':'chưa có dữ liệu';
+  $('wrongMeta').textContent=Object.keys(state.wrong||{}).length+' CÂU';const known=Object.values(state.flash||{}).filter(x=>x&&x.level>0).length;if($('flashMeta')){const totalFlash=BANK.filter(q=>['Từ vựng','Kanji'].some(t=>String(q.t||'').includes(t))).length;$('flashMeta').textContent=known+'/'+totalFlash+' ĐÃ HỌC'};$('bankCount').textContent=BANK.length?BANK.length+' câu trong kho':'chưa có dữ liệu';
 }
 function renderPractice(){
   const grid=$('categoryGrid');grid.innerHTML='';['Tất cả',...categories()].forEach(c=>{const b=document.createElement('button');b.className='selectcard'+(c===selectedCategory?' selected':'');b.innerHTML=`<b>${iconFor(c)} ${escapeHtml(c)}</b><small>${c==='Tất cả'?BANK.length:BANK.filter(q=>q.t===c).length} câu</small>`;b.onclick=()=>{selectedCategory=c;renderPractice()};grid.appendChild(b)});
@@ -217,6 +288,203 @@ $('startPracticeBtn').onclick=()=>startSession(selectedCategory==='Tất cả'?B
 $('dailyBtn').onclick=()=>startSession(BANK,10);
 $('listenMode').onclick=()=>startSession(BANK,10);
 $('wrongMode').onclick=()=>{const pool=wrongPool();if(!pool.length){showToast('Chưa có câu sai để ôn');showScreen('review')}else startSession(pool,Math.min(20,pool.length))};
+
+// ===== FLASHCARD =====
+// Spaced repetition đơn giản, tối ưu cho học nhanh trên điện thoại.
+// Level 0: chưa nhớ; 1: ôn sau 1 ngày; 2: 3 ngày; 3: 7 ngày;
+// 4: 14 ngày; 5: 30 ngày.
+const FLASH_INTERVAL_DAYS=[0,1,3,7,14,30];
+let flashDeck=[],flashIndex=0,flashFlipped=false,flashSeenCount=0,flashRememberedCount=0;
+let flashRepeatCounts={},flashInitialCount=0;
+
+let flashFilter='all';
+function flashPool(){
+  const pool=BANK.filter(q=>{
+    const t=String(q.t||'');
+    if(flashFilter==='vocab')return t.includes('Từ vựng');
+    if(flashFilter==='kanji')return t.includes('Kanji');
+    return t.includes('Từ vựng')||t.includes('Kanji');
+  });
+  return pool;
+}
+function flashWordOf(q){
+  const m=String(q.q||'').match(/[「『]([^」』]+)[」』]/);
+  return m?m[1]:targetJapaneseWord(q);
+}
+function flashReadingOf(q){
+  const type=String(q.t||'');
+  if(type.includes('Kanji')){
+    const correct=Array.isArray(q.a)?q.a[q.c]:'';
+    return correct||q.r||'';
+  }
+  return q.r||'';
+}
+function flashMeaningOf(q){
+  const type=String(q.t||'');
+  if(type.includes('Kanji'))return q.r||'Kanji N3';
+  return (q.a||[])[q.c]||'';
+}
+function flashExampleParts(q){
+  const lines=String(q.e||'').split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  const jp=lines.find(x=>JP_RE.test(x)&&!/^→/.test(x))||'';
+  const vi=lines.find(x=>/^→/.test(x))||'';
+  return {jp,vi};
+}
+function flashData(q){
+  const d=(state.flash||{})[q.id]||{};
+  return {
+    level:Math.max(0,Math.min(5,Number(d.level)||0)),
+    dueAt:Number(d.dueAt)||0,
+    last:Number(d.last)||0
+  };
+}
+function flashLevel(q){return flashData(q).level}
+function flashIsDue(q){
+  const d=flashData(q);
+  return d.level>0 && (!d.dueAt || d.dueAt<=Date.now());
+}
+function flashDueAtForLevel(level){
+  const days=FLASH_INTERVAL_DAYS[Math.max(0,Math.min(5,level))]||0;
+  return Date.now()+days*86400000;
+}
+function flashStatusFor(q){
+  const d=flashData(q);
+  if(d.level===0)return {text:'MỚI / CẦN HỌC',cls:'new'};
+  if(flashIsDue(q))return {text:'CẦN ÔN LẠI',cls:'review'};
+  return {text:'ĐANG GHI NHỚ',cls:'learning'};
+}
+function buildFlashDeck(){
+  const pool=flashPool();
+  const due=shuffle(pool.filter(q=>flashIsDue(q)));
+  const fresh=shuffle(pool.filter(q=>flashLevel(q)===0));
+  const future=pool
+    .filter(q=>flashLevel(q)>0&&!flashIsDue(q))
+    .sort((a,b)=>flashData(a).dueAt-flashData(b).dueAt);
+
+  // Ưu tiên: thẻ đến hạn -> thẻ mới -> một ít thẻ sắp đến hạn.
+  const picked=[];
+  const add=q=>{if(q&&!picked.some(x=>x.id===q.id)&&picked.length<20)picked.push(q)};
+  due.forEach(add);
+  fresh.forEach(add);
+  future.forEach(add);
+  return picked;
+}
+function startFlashcards(){
+  ensureDay();
+  const pool=flashPool();
+  if(!pool.length)return showToast('Chưa có từ vựng để học');
+
+  flashDeck=buildFlashDeck();
+  if(!flashDeck.length)return showToast('Hôm nay chưa có thẻ cần ôn');
+
+  flashInitialCount=flashDeck.length;
+  flashIndex=0;flashFlipped=false;flashSeenCount=0;flashRememberedCount=0;
+  flashRepeatCounts={};
+  showScreen('flashcard');
+  renderFlashcard();
+}
+function renderFlashcard(){
+  if(!flashDeck.length)return showScreen('home');
+
+  if(flashIndex>=flashDeck.length){
+    const msg=`Xong ${flashSeenCount} lượt · nhớ ${flashRememberedCount}`;
+    showToast(msg);
+    renderHome();
+    return showScreen('home');
+  }
+
+  const q=flashDeck[flashIndex],ex=flashExampleParts(q),status=flashStatusFor(q);
+  flashFlipped=false;
+
+  $('flashFront').classList.remove('hide');
+  $('flashBack').classList.add('hide');
+  $('flashNoBtn').disabled=true;
+  $('flashYesBtn').disabled=true;
+
+  $('flashWord').textContent=flashWordOf(q);
+  $('flashReading').textContent=flashReadingOf(q);
+  $('flashMeaning').textContent=flashMeaningOf(q);
+  $('flashExampleJp').textContent=ex.jp;
+  $('flashExampleVi').textContent=ex.vi;
+
+  const label=$('flashStatus');
+  const typeLabel=String(q.t||'').includes('Kanji')?'KANJI · ':'TỪ VỰNG · ';
+  label.textContent=typeLabel+status.text;
+  label.className='flashlabel '+status.cls;
+
+  // flashDeck có thể tăng khi thẻ "Chưa nhớ" được đưa lại cuối buổi.
+  $('flashCounter').textContent=(flashIndex+1)+'/'+flashDeck.length;
+  $('flashKnownText').textContent='Đã học '+Object.values(state.flash||{}).filter(x=>x&&Number(x.level)>0).length;
+  $('flashBar').style.width=(flashIndex/Math.max(1,flashDeck.length)*100)+'%';
+
+  $('flashSeen').textContent=flashSeenCount;
+  $('flashRemembered').textContent=flashRememberedCount;
+  $('flashRemaining').textContent=Math.max(0,flashDeck.length-flashIndex);
+}
+function flipFlashcard(){
+  if(flashFlipped)return;
+  flashFlipped=true;
+  flashSeenCount++;
+  $('flashFront').classList.add('hide');
+  $('flashBack').classList.remove('hide');
+  $('flashNoBtn').disabled=false;
+  $('flashYesBtn').disabled=false;
+  $('flashSeen').textContent=flashSeenCount;
+}
+function gradeFlashcard(remembered){
+  if(!flashFlipped)return flipFlashcard();
+
+  const q=flashDeck[flashIndex];
+  const old=flashData(q);
+
+  if(remembered){
+    const level=Math.min(5,old.level+1);
+    state.flash[q.id]={level,dueAt:flashDueAtForLevel(level),last:Date.now()};
+    flashRememberedCount++;
+  }else{
+    // Sai/Chưa nhớ: trở về level 0 và cho xuất hiện lại một lần ở cuối buổi.
+    state.flash[q.id]={level:0,dueAt:Date.now(),last:Date.now()};
+    const repeats=flashRepeatCounts[q.id]||0;
+    if(repeats<1){
+      flashRepeatCounts[q.id]=repeats+1;
+      flashDeck.push(q);
+    }
+  }
+
+  touchStreak();
+  save();
+  flashIndex++;
+  renderFlashcard();
+}
+document.querySelectorAll('[data-flash-filter]').forEach(btn=>btn.onclick=()=>{
+  flashFilter=btn.dataset.flashFilter||'all';
+  document.querySelectorAll('[data-flash-filter]').forEach(x=>x.classList.toggle('selected',x===btn));
+  if(!$('flashcardScreen').classList.contains('hide'))startFlashcards();
+});
+$('flashMode').onclick=startFlashcards;
+$('flashQuitBtn').onclick=()=>{
+  if('speechSynthesis'in window)speechSynthesis.cancel();
+  renderHome();
+  showScreen('home')
+};
+$('flashCard').onclick=e=>{
+  if(e.target.closest('#flashSpeakBtn'))return;
+  flipFlashcard()
+};
+$('flashCard').onkeydown=e=>{
+  if(e.key==='Enter'||e.key===' '){
+    e.preventDefault();
+    flipFlashcard()
+  }
+};
+$('flashNoBtn').onclick=()=>gradeFlashcard(false);
+$('flashYesBtn').onclick=()=>gradeFlashcard(true);
+$('flashSpeakBtn').onclick=e=>{
+  e.stopPropagation();
+  const q=flashDeck[flashIndex];
+  if(q)speakJapanese(flashWordOf(q))
+};
+
 
 function wrongPool(){return Object.keys(state.wrong||{}).map(id=>BANK.find(q=>q.id===id)).filter(Boolean)}
 function renderReview(){
