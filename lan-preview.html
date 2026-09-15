@@ -324,7 +324,9 @@ function choose(e){
  else{combo=0;e.currentTarget.classList.add("wrong");wrong.push({q,selected:opt.text});progress.recentWrong.unshift({id:q.id,selected:opt.text,at:Date.now()});progress.recentWrong=progress.recentWrong.slice(0,30);showFeedback(false,"Chưa đúng · đáp án: "+q.a[q.c],q.e)}
  let s=statFor(q);s.seen++;if(isCorrect)s.correct++;s.lastWrong=!isCorrect;
  progress.total++;if(isCorrect)progress.correct++;progress.todayCount++;attempts.push({type:q.t,correct:isCorrect});saveProgress();
- $("nextBtn").disabled=false;$("quizBar").style.width=((pos+1)/qs.length*100)+"%";updateSession()
+ $("nextBtn").disabled=false;$("quizBar").style.width=((pos+1)/qs.length*100)+"%";updateSession();
+ // Tự động đọc câu tiếng Nhật sau khi chọn đáp án.
+ setTimeout(()=>speakQuestion(q),180)
 }
 function showFeedback(ok,title,text){let f=$("feedback");f.className="feedback "+(ok?"ok":"no");f.innerHTML="<b>"+(ok?"✅ ":"❌ ")+escapeHtml(title)+"</b><small>"+escapeHtml(text||"")+"</small>"}
 function nextQuestion(){if(!answered)return;if(pos>=qs.length-1)finishRound(false);else{pos++;renderQuestion();window.scrollTo({top:0,behavior:"smooth"})}}
@@ -342,7 +344,32 @@ function finishRound(timeout){
 function renderBreakdown(){let box=$("breakdownRows");box.innerHTML="";cats.forEach(cat=>{let a=attempts.filter(x=>x.type===cat);if(!a.length)return;let ok=a.filter(x=>x.correct).length,p=Math.round(ok/a.length*100),r=document.createElement("div");r.className="categoryrow";r.innerHTML="<span>"+cat+"</span><div class='categorybar'><i style='width:"+p+"%'></i></div><b>"+p+"%</b>";box.appendChild(r)})}
 function renderResultWrong(){let box=$("wrongResultBox"),list=$("wrongResultList");list.innerHTML="";if(!wrong.length){box.classList.add("hide");$("retryWrongBtn").classList.add("hide");return}box.classList.remove("hide");$("retryWrongBtn").classList.remove("hide");$("wrongResultCount").textContent=wrong.length+" câu";wrong.forEach(x=>{let d=document.createElement("div");d.className="reviewitem";d.innerHTML="<b>"+escapeHtml(x.q.q)+"</b><small class='bad'>Bạn chọn: "+escapeHtml(x.selected)+"</small><small class='good'>✓ "+escapeHtml(x.q.a[x.q.c])+"</small><small>"+escapeHtml(x.q.e)+"</small>";list.appendChild(d)})}
 function toggleSave(){let q=qs[pos],i=progress.saved.indexOf(q.id);if(i>=0){progress.saved.splice(i,1);$("saveBtn").textContent="☆";toast("Đã bỏ lưu câu hỏi")}else{progress.saved.push(q.id);$("saveBtn").textContent="★";toast("Đã lưu để ôn lại")}saveProgress()}
-function speak(){let q=qs[pos],jp=(q.e||"").split("\n")[0];if(!jp||!("speechSynthesis"in window))return;speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(jp);u.lang="ja-JP";u.rate=.85;speechSynthesis.speak(u)}
+
+function spokenJapanese(q){
+  if(!q)return "";
+  // Với câu ngữ pháp có chỗ trống, đọc cả câu với đáp án đúng đã được điền.
+  if(q.t==="Ngữ pháp" && /（　）/.test(q.q)){
+    return q.q.replace("（　）", q.a[q.c]);
+  }
+  // Với từ vựng/Kanji, ưu tiên câu ví dụ tiếng Nhật trong phần giải thích.
+  let lines=String(q.e||"").split("\n").map(x=>x.trim()).filter(Boolean);
+  let jpLine=lines.find(x=>/[ぁ-んァ-ン一-龯]/.test(x) && !x.startsWith("→"));
+  if(jpLine)return jpLine;
+  // Nếu bản thân câu hỏi là tiếng Nhật thì dùng trực tiếp.
+  if(/[ぁ-んァ-ン一-龯]/.test(q.q))return q.q.replace("（　）", q.a[q.c]||"");
+  return "";
+}
+
+function speakQuestion(q){
+  let jp=spokenJapanese(q);
+  if(!jp||!("speechSynthesis"in window))return;
+  speechSynthesis.cancel();
+  let u=new SpeechSynthesisUtterance(jp);
+  u.lang="ja-JP";
+  u.rate=.82;
+  speechSynthesis.speak(u);
+}
+function speak(){speakQuestion(qs[pos])}
 function quit(){if(pos>0||answered){if(!confirm("Thoát vòng học hiện tại? Các câu đã trả lời vẫn được lưu vào tiến độ."))return}stopTimer();showScreen("home")}
 
 $("jsWarn").style.display="none";initTheme();ensureToday();renderHome();updatePracticeHint();
