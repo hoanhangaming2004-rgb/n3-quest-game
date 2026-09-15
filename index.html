@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>N3 Quest</title>
+<style>
+*{box-sizing:border-box}
+:root{--bg:#f5f6f8;--card:#fff;--text:#202124;--muted:#6b7280;--line:#d9dde4;--accent:#1d4ed8;--ok:#15803d;--bad:#b91c1c}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{margin:4px 0 4px;font-size:26px}.sub{margin:0 0 16px;color:var(--muted);line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.box,.panel,.fallback{background:var(--card);border:1px solid var(--line);border-radius:16px}
+.box{padding:12px;text-align:center}.box span{display:block;color:var(--muted);font-size:12px}.box strong{font-size:21px}
+.panel{padding:16px}.top{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.tag{border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:14px}
+button{min-height:46px;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:12px;padding:10px 14px;font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:disabled{opacity:.45;cursor:default}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;width:100%}
+.question{font-size:21px;line-height:1.55;font-weight:700;margin:20px 0 8px}
+.reading{background:#eef0f3;border-radius:10px;padding:10px 12px;color:#4b5563;margin:0 0 14px}
+.hide{display:none!important}
+.answers{display:grid;gap:10px}
+.answer{text-align:left;width:100%;background:#fff}
+.answer.correct{border:2px solid var(--ok)}
+.answer.wrong{border:2px solid var(--bad)}
+.feedback{min-height:58px;margin:14px 0;padding:11px;border-radius:12px;white-space:pre-line;line-height:1.5}
+.feedback.ok{border:1px solid var(--ok)}.feedback.no{border:1px solid var(--bad)}
+.actions{display:grid;grid-template-columns:1fr auto;gap:8px}
+.progress{height:8px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:14px}
+.progress div{height:100%;background:var(--accent);width:0}
+.small{font-size:13px;color:var(--muted)}
+.result{text-align:center}
+.result h2{margin-top:0}
+.fallback{padding:16px;margin-top:16px}
+.fallback details{border-top:1px solid var(--line);padding:10px 0}
+.fallback summary{cursor:pointer;font-weight:600;line-height:1.5}
+.notice{border:1px solid #d97706;border-radius:12px;padding:12px;background:#fff7ed;line-height:1.5;margin-bottom:14px}
+@media(max-width:480px){main{padding:12px}.question{font-size:19px}.actions{grid-template-columns:1fr}.grid{gap:6px}.box{padding:9px 5px}}
+</style>
+</head>
+<body>
+<main>
+<h1>N3 Quest 🎌</h1>
+<p class="sub">JLPT N3: từ vựng, Kanji và ngữ pháp. Phiên âm bằng hiragana, không dùng romaji.</p>
+
+<div id="jsWarning" class="notice">
+  Nếu bạn đang xem file trong ứng dụng Files trên iPhone và nút không hoạt động, hãy mở bản này từ một đường link web. Trình xem file của iPhone có thể không chạy JavaScript.
+</div>
+
+<div id="game">
+  <div class="grid">
+    <div class="box"><span>Điểm</span><strong id="score">0</strong></div>
+    <div class="box"><span>Chuỗi đúng</span><strong id="streak">0 🔥</strong></div>
+    <div class="box"><span>Câu</span><strong id="counter">1/10</strong></div>
+  </div>
+
+  <section class="panel" id="quiz">
+    <div class="top">
+      <span class="tag" id="type">Từ vựng</span>
+      <button type="button" id="hint">💡 Xem hiragana</button>
+    </div>
+    <div class="question" id="question">Đang tải câu hỏi…</div>
+    <div class="reading hide" id="reading"></div>
+    <div class="answers" id="answers"></div>
+    <div class="feedback" id="feedback" aria-live="polite"></div>
+    <div class="actions">
+      <button class="primary" type="button" id="next" disabled>Câu tiếp theo</button>
+      <button type="button" id="restart">Chơi lại</button>
+    </div>
+    <div class="progress"><div id="bar"></div></div>
+    <p class="small" id="accuracy">Độ chính xác: 0%</p>
+  </section>
+
+  <section class="panel result hide" id="result">
+    <h2>Hoàn thành 🎉</h2>
+    <p id="finalScore"></p>
+    <p class="small" id="finalMsg"></p>
+    <button class="primary" type="button" id="again">Chơi vòng mới</button>
+  </section>
+</div>
+
+<noscript>
+<section class="fallback">
+  <strong>Chế độ không JavaScript</strong>
+  <p>Thiết bị/trình xem hiện tại không chạy JavaScript. Bạn vẫn có thể ôn nhanh bằng cách mở từng câu bên dưới.</p>
+  <details><summary>「慣れる」 có nghĩa là gì?</summary><p>なれる — Quen, trở nên quen.</p></details>
+  <details><summary>「経験」 đọc thế nào?</summary><p>けいけん — kinh nghiệm.</p></details>
+  <details><summary>日本で働く（　）、日本語を勉強しています。</summary><p>ために — にほんで はたらくために、にほんごを べんきょうしています。</p></details>
+  <details><summary>財布を忘れて（　）。</summary><p>しまいました — さいふを わすれてしまいました。</p></details>
+</section>
+</noscript>
+</main>
+
+<script>
+(function(){
+"use strict";
+var warning=document.getElementById("jsWarning");
+if(warning){warning.style.display="none";}
+
+var bank=[
+{t:"Từ vựng",q:"「慣れる」 có nghĩa là gì?",r:"なれる",a:["Quên","Quen, trở nên quen","Lựa chọn","Tăng lên"],c:1,e:"日本の生活に慣れました。\nにほんの せいかつに なれました。\n→ Tôi đã quen với cuộc sống ở Nhật."},
+{t:"Từ vựng",q:"「間に合う」 có nghĩa là gì?",r:"まにあう",a:["Kịp giờ","Tiếp tục","Xác nhận","Thay đổi"],c:0,e:"電車に間に合いました。\nでんしゃに まにあいました。\n→ Tôi đã kịp chuyến tàu."},
+{t:"Kanji",q:"Cách đọc của 「経験」 là gì?",r:"Chọn hiragana đúng.",a:["けいけん","けんけい","けいげん","けんげん"],c:0,e:"経験があります。\nけいけんが あります。\n→ Tôi có kinh nghiệm."},
+{t:"Kanji",q:"Cách đọc của 「準備」 là gì?",r:"Chọn hiragana đúng.",a:["じゅび","じゅんび","じゅんぴ","じゅうび"],c:1,e:"旅行の準備をします。\nりょこうの じゅんびを します。\n→ Tôi chuẩn bị cho chuyến đi."},
+{t:"Ngữ pháp",q:"日本で働く（　）、日本語を勉強しています。",r:"にほんで はたらく（　）、にほんごを べんきょうしています。",a:["ばかり","ために","てしまう","ことになる"],c:1,e:"～ために = để / vì mục đích…\n→ Tôi học tiếng Nhật để làm việc ở Nhật."},
+{t:"Ngữ pháp",q:"財布を忘れて（　）。",r:"さいふを わすれて（　）。",a:["なりました","しまいました","ためです","ばかりです"],c:1,e:"～てしまう diễn tả việc lỡ làm hoặc cảm giác tiếc nuối.\n→ Tôi lỡ quên ví mất rồi."},
+{t:"Ngữ pháp",q:"毎日練習して、漢字が読める（　）。",r:"まいにち れんしゅうして、かんじが よめる（　）。",a:["ようになりました","ばかりでした","ためでした","ことでした"],c:0,e:"～ようになる = trở nên có thể…\n→ Tôi đã có thể đọc Kanji."},
+{t:"Từ vựng",q:"「増える」 trái nghĩa gần nhất với từ nào?",r:"ふえる",a:["減る（へる）","続く（つづく）","選ぶ（えらぶ）","決める（きめる）"],c:0,e:"増える（ふえる）= tăng lên\n減る（へる）= giảm đi"},
+{t:"Ngữ pháp",q:"忘れない（　）、メモしてください。",r:"わすれない（　）、めもして ください。",a:["ために","ように","ばかり","ことになる"],c:1,e:"～ように = để sao cho…\n→ Hãy ghi chú lại để không quên."},
+{t:"Kanji",q:"「約束」 nghĩa là gì?",r:"やくそく",a:["Chuẩn bị","Kinh nghiệm","Lời hứa / cuộc hẹn","Thói quen"],c:2,e:"友達と約束があります。\nともだちと やくそくが あります。\n→ Tôi có hẹn với bạn."},
+{t:"Từ vựng",q:"「必ず」 có nghĩa là gì?",r:"かならず",a:["Có lẽ","Thỉnh thoảng","Nhất định / chắc chắn","Gần đây"],c:2,e:"明日は必ず行きます。\nあしたは かならず いきます。\n→ Ngày mai tôi nhất định sẽ đi."},
+{t:"Kanji",q:"Cách đọc của 「確認」 là gì?",r:"Chọn hiragana đúng.",a:["かくにん","かくねん","かくじん","かっにん"],c:0,e:"もう一度確認してください。\nもういちど かくにんして ください。\n→ Hãy kiểm tra lại một lần nữa."},
+{t:"Ngữ pháp",q:"来月、大阪へ出張する（　）。",r:"らいげつ、おおさかへ しゅっちょうする（　）。",a:["ようにしました","ことになりました","ばかりでした","ためにしました"],c:1,e:"～ことになる = được quyết định là…\n→ Tháng sau tôi sẽ đi công tác Osaka."},
+{t:"Từ vựng",q:"「選ぶ」 có nghĩa là gì?",r:"えらぶ",a:["Lựa chọn","Giải thích","Quên","Tiếp tục"],c:0,e:"好きなものを選んでください。\nすきな ものを えらんで ください。\n→ Hãy chọn thứ bạn thích."},
+{t:"Ngữ pháp",q:"彼はゲーム（　）しています。",r:"かれは げーむ（　）しています。",a:["ように","ばかり","ために","ことになる"],c:1,e:"～ばかり = chỉ toàn…\n→ Anh ấy chỉ toàn chơi game."}
+];
+
+function el(id){return document.getElementById(id);}
+var qs=[],pos=0,score=0,streak=0,correct=0,answered=false;
+
+function shuffle(arr){
+  var a=arr.slice(),i,j,tmp;
+  for(i=a.length-1;i>0;i--){
+    j=Math.floor(Math.random()*(i+1));
+    tmp=a[i];a[i]=a[j];a[j]=tmp;
+  }
+  return a;
+}
+
+function updateStats(){
+  var done=pos+(answered?1:0);
+  var acc=done?Math.round(correct/done*100):0;
+  el("score").textContent=score;
+  el("streak").textContent=streak+" 🔥";
+  el("counter").textContent=(Math.min(pos+1,10))+"/10";
+  el("accuracy").textContent="Độ chính xác: "+acc+"%";
+  el("bar").style.width=((done/10)*100)+"%";
+}
+
+function render(){
+  var q=qs[pos],i,b;
+  answered=false;
+  el("type").textContent=q.t;
+  el("question").textContent=q.q;
+  el("reading").textContent=q.r;
+  el("reading").className="reading hide";
+  el("hint").textContent="💡 Xem hiragana";
+  el("feedback").textContent="";
+  el("feedback").className="feedback";
+  el("next").disabled=true;
+  el("answers").innerHTML="";
+  for(i=0;i<q.a.length;i++){
+    b=document.createElement("button");
+    b.type="button";
+    b.className="answer";
+    b.setAttribute("data-index",String(i));
+    b.textContent=String.fromCharCode(65+i)+". "+q.a[i];
+    b.addEventListener("click",choose,false);
+    el("answers").appendChild(b);
+  }
+  updateStats();
+}
+
+function choose(evt){
+  if(answered){return;}
+  answered=true;
+  var selected=parseInt(evt.currentTarget.getAttribute("data-index"),10);
+  var q=qs[pos];
+  var buttons=el("answers").getElementsByTagName("button");
+  var i,bonus;
+  for(i=0;i<buttons.length;i++){
+    buttons[i].disabled=true;
+    if(i===q.c){buttons[i].className+=" correct";}
+  }
+  if(selected===q.c){
+    streak++;
+    correct++;
+    bonus=Math.min(streak-1,5)*2;
+    score+=10+bonus;
+    el("feedback").textContent="✅ Chính xác! +"+(10+bonus)+" điểm.\n"+q.e;
+    el("feedback").className="feedback ok";
+  }else{
+    streak=0;
+    evt.currentTarget.className+=" wrong";
+    el("feedback").textContent="❌ Chưa đúng. Đáp án đúng: "+q.a[q.c]+"\n"+q.e;
+    el("feedback").className="feedback no";
+  }
+  el("next").disabled=false;
+  updateStats();
+}
+
+function finish(){
+  var acc=Math.round(correct/10*100);
+  el("quiz").className="panel hide";
+  el("result").className="panel result";
+  el("finalScore").textContent=score+" điểm • "+correct+"/10 câu đúng • "+acc+"%";
+  if(acc>=90){el("finalMsg").textContent="Rất tốt. Có thể tăng độ khó lên N3 nâng cao.";}
+  else if(acc>=70){el("finalMsg").textContent="Khá tốt. Hãy ôn lại các câu đã sai.";}
+  else if(acc>=50){el("finalMsg").textContent="Đang tiến bộ. Nên củng cố từ vựng và ngữ pháp N3.";}
+  else{el("finalMsg").textContent="Nên chơi lại và đọc kỹ phần giải thích sau mỗi câu.";}
+}
+
+function next(){
+  if(!answered){return;}
+  if(pos>=9){finish();return;}
+  pos++;
+  render();
+}
+
+function reset(){
+  qs=shuffle(bank).slice(0,10);
+  pos=0;score=0;streak=0;correct=0;answered=false;
+  el("result").className="panel result hide";
+  el("quiz").className="panel";
+  render();
+}
+
+el("hint").addEventListener("click",function(){
+  var r=el("reading");
+  if(r.className.indexOf("hide")>=0){
+    r.className="reading";
+    el("hint").textContent="🙈 Ẩn hiragana";
+  }else{
+    r.className="reading hide";
+    el("hint").textContent="💡 Xem hiragana";
+  }
+},false);
+el("next").addEventListener("click",next,false);
+el("restart").addEventListener("click",reset,false);
+el("again").addEventListener("click",reset,false);
+
+reset();
+})();
+</script>
+</body>
+</html>
