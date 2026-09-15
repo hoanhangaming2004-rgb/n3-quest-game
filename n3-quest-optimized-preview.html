@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta name="description" content="N3 Quest - Game luyện JLPT N3 bằng tiếng Việt, có hiragana và không dùng romaji.">
+  <title>N3 Quest</title>
+  <style>
+*{box-sizing:border-box}
+:root{
+  --bg:#f5f7fb;--card:#fff;--card2:#f8fafc;--text:#172033;--muted:#657085;--line:#dce4ef;
+  --accent:#2563eb;--accent2:#1d4ed8;--soft:#edf4ff;--ok:#15803d;--okbg:#edfdf3;
+  --bad:#b91c1c;--badbg:#fff1f2;--shadow:0 12px 32px rgba(30,64,175,.07);
+}
+:root[data-theme="dark"]{
+  --bg:#0e1627;--card:#151f33;--card2:#111b2d;--text:#edf3fb;--muted:#a4b1c4;--line:#2a3950;
+  --accent:#60a5fa;--accent2:#3b82f6;--soft:#172d4f;--ok:#4ade80;--okbg:#123322;
+  --bad:#fb7185;--badbg:#3a1620;--shadow:0 12px 32px rgba(0,0,0,.18);
+}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;transition:background .18s,color .18s}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;color:inherit}
+button:focus-visible,summary:focus-visible{outline:3px solid color-mix(in srgb,var(--accent),transparent 55%);outline-offset:2px}
+.app-shell{max-width:760px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 14px calc(32px + env(safe-area-inset-bottom))}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px}.brand-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:var(--accent);color:white;font-weight:900;box-shadow:var(--shadow)}
+.brand strong,.brand span{display:block}.brand strong{font-size:18px}.brand span{font-size:12px;color:var(--muted);margin-top:2px}
+.icon-btn,.ghost-btn,.secondary,.tool-btn{border:1px solid var(--line);background:var(--card);color:var(--text)}
+.icon-btn{width:44px;height:44px;border-radius:13px;font-size:19px;display:grid;place-items:center;flex:0 0 auto}
+.notice{padding:11px 13px;border:1px solid #d97706;border-radius:14px;background:#fff7ed;color:#7c2d12;margin-bottom:12px;line-height:1.45;font-size:14px}
+:root[data-theme="dark"] .notice{background:#39270f;color:#fde68a;border-color:#92400e}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+.hero{padding:19px}.hero h1{font-size:26px;line-height:1.12;letter-spacing:-.025em;margin:6px 0 8px}.hero p{color:var(--muted);line-height:1.5;margin:0 0 16px;font-size:14px}
+.eyebrow{font-size:11px;font-weight:850;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.primary{border:0;border-radius:14px;background:var(--accent);color:white;font-weight:800;min-height:50px;padding:12px 16px}.primary:active{background:var(--accent2);transform:translateY(1px)}.primary:disabled{opacity:.45;cursor:default;transform:none}
+.hero-btn{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left}.hero-btn span,.hero-btn small{display:block}.hero-btn small{font-weight:600;opacity:.85}
+.summary-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:10px 0}.summary-strip div{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:10px 6px;text-align:center}.summary-strip span,.summary-strip strong{display:block}.summary-strip span{font-size:10px;color:var(--muted)}.summary-strip strong{font-size:17px;margin-top:3px}
+.learn-panel{padding:18px}.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.section-head h2,.section-head h3{margin:4px 0 0}.section-head h2{font-size:21px}.section-head h3{font-size:18px}
+.pill{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--card2);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted);white-space:nowrap}
+.mode-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:16px 0}.mode-card{min-height:76px;display:flex;align-items:center;gap:11px;text-align:left;border:1px solid var(--line);background:var(--card2);border-radius:16px;padding:12px;transition:transform .12s,border-color .12s,background .12s}.mode-card:active{transform:scale(.985)}.mode-card.selected{border:2px solid var(--accent);background:var(--soft);padding:11px}.mode-card.disabled{opacity:.48}.mode-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:21px;flex:0 0 auto}.mode-card strong,.mode-card small{display:block}.mode-card strong{font-size:14px}.mode-card small{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.3}
+.length-block{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0}.field-label{font-size:13px;color:var(--muted);font-weight:700}.segmented{display:flex;padding:3px;border:1px solid var(--line);background:var(--card2);border-radius:13px;gap:2px}.segmented button{border:0;background:transparent;border-radius:10px;min-width:42px;height:36px;padding:0 9px;font-weight:750;color:var(--muted)}.segmented button.selected{background:var(--card);color:var(--accent);box-shadow:0 2px 8px rgba(15,23,42,.08)}
+.big-btn{width:100%;font-size:16px}.center-note{text-align:center;color:var(--muted);font-size:11px;line-height:1.4;margin:10px 0 0}
+.progress-details{margin-top:10px;padding:0;overflow:hidden}.progress-details summary{padding:15px 17px;display:flex;justify-content:space-between;gap:10px;cursor:pointer;font-weight:750;list-style:none}.progress-details summary::-webkit-details-marker{display:none}.progress-details summary span:last-child{color:var(--muted);font-size:12px;font-weight:650}.xp-row{border-top:1px solid var(--line);padding:14px 17px}.xp-copy{display:flex;justify-content:space-between;gap:10px;align-items:center}.xp-copy small{color:var(--muted)}.mini-progress{height:7px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:9px}.mini-progress div{height:100%;background:var(--accent);width:0}.achievement-strip{display:flex;gap:7px;overflow-x:auto;padding:0 17px 16px;scrollbar-width:none}.achievement-strip::-webkit-scrollbar{display:none}.achievement-chip{display:flex;align-items:center;gap:5px;white-space:nowrap;padding:7px 9px;border:1px solid var(--line);border-radius:999px;background:var(--card2);font-size:11px}.achievement-chip.locked{opacity:.38;filter:grayscale(1)}
+.hide{display:none!important}
+.quiz-topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:10px;padding:7px 0 10px;background:color-mix(in srgb,var(--bg),transparent 6%);backdrop-filter:blur(10px)}.quiz-progress-wrap{flex:1}.quiz-progress-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:6px}.quiz-progress-meta span{color:var(--muted)}.progress{height:7px;background:var(--line);border-radius:999px;overflow:hidden}.progress div{height:100%;background:var(--accent);width:0;transition:width .2s}
+.quiz-card{padding:18px;margin-bottom:10px}.session-line{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12px}.session-line span{background:var(--card2);border-radius:999px;padding:5px 8px}.session-line strong{color:var(--text)}.question{font-size:22px;line-height:1.55;font-weight:800;margin:20px 0 10px;letter-spacing:-.01em}.reading{background:var(--soft);border-radius:12px;padding:11px 12px;color:var(--muted);line-height:1.55;margin-bottom:11px}.question-tools{display:flex;gap:8px;flex-wrap:wrap}.tool-btn{border-radius:11px;min-height:40px;padding:8px 11px;font-size:13px}.tool-btn:disabled{opacity:.4;cursor:default}
+.answers{display:grid;gap:9px}.answer{width:100%;min-height:58px;border:1px solid var(--line);background:var(--card);border-radius:15px;text-align:left;padding:13px 14px;font-weight:650;line-height:1.42;box-shadow:0 4px 15px rgba(15,23,42,.025);transition:transform .1s,border-color .1s}.answer:active{transform:scale(.992)}.answer .letter{display:inline-grid;place-items:center;width:27px;height:27px;margin-right:8px;border-radius:8px;background:var(--card2);color:var(--muted);font-size:12px;font-weight:900;vertical-align:middle}.answer.correct{border:2px solid var(--ok);background:var(--okbg);padding:12px 13px}.answer.wrong{border:2px solid var(--bad);background:var(--badbg);padding:12px 13px}.answer:disabled{color:var(--text);opacity:1;cursor:default}.answer.dimmed{opacity:.62}
+.feedback{margin-top:10px;border-radius:15px;padding:14px;line-height:1.55;white-space:pre-line;font-size:14px;border:1px solid var(--line);background:var(--card)}.feedback.ok{border-color:color-mix(in srgb,var(--ok),transparent 45%);background:var(--okbg)}.feedback.no{border-color:color-mix(in srgb,var(--bad),transparent 45%);background:var(--badbg)}.feedback-title{display:block;font-weight:850;margin-bottom:4px}.feedback .explanation{color:var(--muted)}
+.bottom-action-space{height:78px}.bottom-action{position:fixed;z-index:12;left:0;right:0;bottom:0;padding:10px max(14px,calc((100vw - 760px)/2 + 14px)) calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--bg),transparent 4%);backdrop-filter:blur(12px);border-top:1px solid color-mix(in srgb,var(--line),transparent 35%)}.bottom-action .primary{width:100%}
+.result-hero{padding:22px;text-align:center}.result-icon{font-size:42px;margin-bottom:4px}.result-hero h2{font-size:25px;margin:5px 0 8px}.result-hero>p{color:var(--muted);line-height:1.5;margin:0 auto 16px;max-width:520px}.result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.result-grid div{background:var(--card2);border-radius:13px;padding:10px 5px}.result-grid span,.result-grid strong{display:block}.result-grid span{font-size:10px;color:var(--muted)}.result-grid strong{font-size:18px;margin-top:3px}
+.breakdown-box,.review-box,.achievement-box{padding:18px;margin-top:10px}.breakdown-list{display:grid;gap:8px;margin-top:14px}.breakdown-row{display:grid;grid-template-columns:82px 1fr 42px;gap:8px;align-items:center;font-size:12px}.breakdown-bar{height:8px;background:var(--line);border-radius:999px;overflow:hidden}.breakdown-bar i{display:block;height:100%;background:var(--accent);border-radius:999px}.breakdown-row strong{text-align:right}.wrong-list{display:grid;gap:9px;margin-top:13px}.wrong-item{border:1px solid var(--line);background:var(--card2);border-radius:14px;padding:13px}.wrong-item>strong{display:block;line-height:1.45}.reading-line{color:var(--muted);font-size:13px;margin-top:5px}.correct-line{color:var(--ok);font-weight:800;margin-top:8px;font-size:13px}.your-line{color:var(--bad);margin-top:4px;font-size:13px}.explain{white-space:pre-line;color:var(--muted);font-size:12px;line-height:1.5;margin-top:7px}.achievement-box strong{display:block;margin-bottom:8px}.new-achievement{padding:7px 0;color:var(--muted)}
+.result-actions{display:grid;gap:8px;margin-top:10px}.secondary,.ghost-btn{min-height:48px;border-radius:14px;padding:11px 14px;font-weight:750}.secondary{background:var(--card)}.ghost-btn{background:transparent}
+.toast{position:fixed;z-index:30;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--text);color:var(--bg);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:700;box-shadow:var(--shadow);white-space:nowrap;animation:toastin .18s ease-out}@keyframes toastin{from{transform:translate(-50%,6px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+@media(max-width:560px){.app-shell{padding-left:11px;padding-right:11px}.hero{padding:17px}.hero h1{font-size:23px}.summary-strip{gap:5px}.summary-strip div{padding:9px 3px}.summary-strip strong{font-size:15px}.mode-grid{gap:7px}.mode-card{padding:10px;min-height:72px}.mode-card.selected{padding:9px}.mode-icon{width:38px;height:38px;font-size:19px}.length-block{align-items:flex-start;flex-direction:column}.segmented{width:100%;display:grid;grid-template-columns:repeat(4,1fr)}.segmented button{width:100%}.question{font-size:20px}.result-grid{grid-template-columns:repeat(2,1fr)}.breakdown-row{grid-template-columns:72px 1fr 38px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+
+</style>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">N3</div>
+        <div>
+          <strong>N3 Quest</strong>
+          <span>JLPT N3 · không romaji</span>
+        </div>
+      </div>
+      <button id="themeBtn" class="icon-btn" type="button" aria-label="Đổi giao diện">🌙</button>
+    </header>
+
+    <div id="jsWarning" class="notice">
+      Trình xem này không chạy JavaScript. Hãy mở bằng Safari/Chrome hoặc GitHub Pages để chơi đầy đủ.
+    </div>
+
+    <section id="homeScreen">
+      <section class="hero panel">
+        <div>
+          <span class="eyebrow">Bài hôm nay</span>
+          <h1>Học N3 trong 5–10 phút</h1>
+          <p>10 câu cân bằng giữa từ vựng, Kanji và ngữ pháp. Câu hỏi cố định trong ngày để bạn có thể quay lại hoàn thành.</p>
+        </div>
+        <button id="dailyBtn" class="primary hero-btn" type="button">
+          <span>⚡ Học nhanh 10 câu</span>
+          <small id="dailyMeta">Khoảng 6 phút</small>
+        </button>
+      </section>
+
+      <section class="summary-strip" aria-label="Tiến độ học">
+        <div><span>Level</span><strong id="levelStat">1</strong></div>
+        <div><span>Chuỗi ngày</span><strong id="dayStreakStat">0 🔥</strong></div>
+        <div><span>Chính xác</span><strong id="lifetimeAccuracy">0%</strong></div>
+        <div><span>Đã làm</span><strong id="lifetimeCount">0</strong></div>
+      </section>
+
+      <section class="panel learn-panel">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Tùy chọn</span>
+            <h2>Chọn nội dung luyện</h2>
+          </div>
+          <span id="bankCount" class="pill">0 câu</span>
+        </div>
+
+        <div class="mode-grid" id="modeGrid">
+          <button class="mode-card selected" type="button" data-mode="mixed">
+            <span class="mode-icon">🎯</span>
+            <span><strong>Tổng hợp</strong><small>Cân bằng 3 dạng</small></span>
+          </button>
+          <button class="mode-card" type="button" data-mode="vocab">
+            <span class="mode-icon">📚</span>
+            <span><strong>Từ vựng</strong><small>Nghĩa & cách dùng</small></span>
+          </button>
+          <button class="mode-card" type="button" data-mode="kanji">
+            <span class="mode-icon">漢</span>
+            <span><strong>Kanji</strong><small>Đọc & ý nghĩa</small></span>
+          </button>
+          <button class="mode-card" type="button" data-mode="grammar">
+            <span class="mode-icon">文</span>
+            <span><strong>Ngữ pháp</strong><small>Mẫu câu N3</small></span>
+          </button>
+          <button class="mode-card" type="button" data-mode="weak" id="weakModeBtn">
+            <span class="mode-icon">🧠</span>
+            <span><strong>Câu yếu</strong><small id="weakModeText">Học từ lỗi sai</small></span>
+          </button>
+          <button class="mode-card" type="button" data-mode="saved" id="savedModeBtn">
+            <span class="mode-icon">🔖</span>
+            <span><strong>Đã lưu</strong><small id="savedModeText">Câu muốn ôn lại</small></span>
+          </button>
+        </div>
+
+        <div class="length-block">
+          <span class="field-label">Số câu</span>
+          <div class="segmented" id="countGroup" role="group" aria-label="Số câu mỗi vòng">
+            <button type="button" data-count="5">5</button>
+            <button class="selected" type="button" data-count="10">10</button>
+            <button type="button" data-count="20">20</button>
+            <button type="button" data-count="all">Tất cả</button>
+          </div>
+        </div>
+
+        <button id="startBtn" class="primary big-btn" type="button">Bắt đầu luyện</button>
+        <p id="startHint" class="center-note">Đáp án được đảo vị trí mỗi lần để tránh học theo mẹo.</p>
+      </section>
+
+      <details class="panel progress-details">
+        <summary>
+          <span>🏅 Thành tích & tiến độ</span>
+          <span id="xpCompact">0 / 250 XP</span>
+        </summary>
+        <div class="xp-row">
+          <div class="xp-copy"><strong id="levelDetail">Level 1</strong><small id="xpText">0 / 250 XP</small></div>
+          <div class="mini-progress"><div id="xpBar"></div></div>
+        </div>
+        <div class="achievement-strip" id="achievementStrip"></div>
+      </details>
+    </section>
+
+    <section id="quizScreen" class="hide">
+      <div class="quiz-topbar">
+        <button id="quitBtn" class="icon-btn" type="button" aria-label="Thoát vòng học">✕</button>
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-meta"><span id="typeTag">Từ vựng</span><strong id="counter">1/10</strong></div>
+          <div class="progress"><div id="bar"></div></div>
+        </div>
+        <button id="saveBtn" class="icon-btn" type="button" aria-label="Lưu câu hỏi">☆</button>
+      </div>
+
+      <section class="panel quiz-card">
+        <div class="session-line">
+          <span>Điểm <strong id="score">0</strong></span>
+          <span>Combo <strong id="streak">0 🔥</strong></span>
+          <span id="accuracy">0%</span>
+        </div>
+
+        <div class="question" id="question">Đang tải câu hỏi…</div>
+        <div class="reading hide" id="reading"></div>
+
+        <div class="question-tools">
+          <button id="hintBtn" class="tool-btn" type="button">あ Hiragana</button>
+          <button id="speakBtn" class="tool-btn" type="button">🔊 Nghe ví dụ</button>
+        </div>
+      </section>
+
+      <div id="answers" class="answers"></div>
+      <div id="feedback" class="feedback hide" aria-live="polite"></div>
+
+      <div class="bottom-action-space"></div>
+      <div class="bottom-action">
+        <button id="nextBtn" class="primary" type="button" disabled>Câu tiếp theo</button>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="hide">
+      <section class="panel result-hero">
+        <div class="result-icon" id="resultIcon">🏆</div>
+        <span class="eyebrow">Hoàn thành</span>
+        <h2 id="resultTitle">Kết quả vòng học</h2>
+        <p id="finalMsg"></p>
+
+        <div class="result-grid">
+          <div><span>Chính xác</span><strong id="finalAccuracy">0%</strong></div>
+          <div><span>Điểm</span><strong id="finalScore">0</strong></div>
+          <div><span>Combo</span><strong id="finalCombo">0</strong></div>
+          <div><span>XP nhận</span><strong id="xpGained">+0</strong></div>
+        </div>
+      </section>
+
+      <section id="breakdownBox" class="panel breakdown-box">
+        <div class="section-head"><div><span class="eyebrow">Phân tích</span><h3>Theo dạng câu</h3></div></div>
+        <div id="breakdownList" class="breakdown-list"></div>
+      </section>
+
+      <div id="newAchievements" class="panel achievement-box hide"></div>
+
+      <section id="reviewBox" class="panel review-box hide">
+        <div class="section-head">
+          <div><span class="eyebrow">Ôn lại</span><h3>Các câu trả lời sai</h3></div>
+          <span id="wrongCount" class="pill"></span>
+        </div>
+        <div id="wrongList" class="wrong-list"></div>
+      </section>
+
+      <div class="result-actions">
+        <button id="retryWrongBtn" class="secondary hide" type="button">🧠 Luyện lại câu sai</button>
+        <button id="playAgainBtn" class="primary" type="button">Chơi vòng mới</button>
+        <button id="homeBtn" class="ghost-btn" type="button">Về trang chính</button>
+      </div>
+    </section>
+
+    <div id="toast" class="toast hide" role="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+// Ngân hàng câu hỏi JLPT N3.
+// t = loại câu hỏi, q = câu hỏi, r = hiragana/gợi ý, a = đáp án, c = chỉ số đáp án đúng, e = giải thích.
+window.N3_QUESTION_BANK = [
+  // ===== TỪ VỰNG =====
+  {t:"Từ vựng",q:"「慣れる」 có nghĩa là gì?",r:"なれる",a:["Quên","Quen, trở nên quen","Lựa chọn","Tăng lên"],c:1,e:"日本の生活に慣れました。
+にほんの せいかつに なれました。
+→ Tôi đã quen với cuộc sống ở Nhật."},
+  {t:"Từ vựng",q:"「間に合う」 có nghĩa là gì?",r:"まにあう",a:["Kịp giờ","Tiếp tục","Xác nhận","Thay đổi"],c:0,e:"電車に間に合いました。
+でんしゃに まにあいました。
+→ Tôi đã kịp chuyến tàu."},
+  {t:"Từ vựng",q:"「必ず」 có nghĩa là gì?",r:"かならず",a:["Có lẽ","Thỉnh thoảng","Nhất định / chắc chắn","Gần đây"],c:2,e:"明日は必ず行きます。
+あしたは かならず いきます。
+→ Ngày mai tôi nhất định sẽ đi."},
+  {t:"Từ vựng",q:"「増える」 trái nghĩa gần nhất với từ nào?",r:"ふえる",a:["減る（へる）","続く（つづく）","選ぶ（えらぶ）","決める（きめる）"],c:0,e:"増える（ふえる）= tăng lên
+減る（へる）= giảm đi"},
+  {t:"Từ vựng",q:"「選ぶ」 có nghĩa là gì?",r:"えらぶ",a:["Lựa chọn","Giải thích","Quên","Tiếp tục"],c:0,e:"好きなものを選んでください。
+すきな ものを えらんで ください。
+→ Hãy chọn thứ bạn thích."},
+  {t:"Từ vựng",q:"「申し込む」 có nghĩa là gì?",r:"もうしこむ",a:["Đăng ký / nộp đơn","Từ chối","So sánh","Sửa chữa"],c:0,e:"日本語の試験に申し込みました。
+にほんごの しけんに もうしこみました。
+→ Tôi đã đăng ký kỳ thi tiếng Nhật."},
+  {t:"Từ vựng",q:"「届く」 có nghĩa là gì?",r:"とどく",a:["Được giao tới / tới nơi","Rời khỏi","Trả lại","Mang theo"],c:0,e:"荷物が昨日届きました。
+にもつが きのう とどきました。
+→ Hành lý đã được giao đến hôm qua."},
+  {t:"Từ vựng",q:"「比べる」 có nghĩa là gì?",r:"くらべる",a:["So sánh","Thu thập","Thay đổi","Điều tra"],c:0,e:"二つの商品を比べます。
+ふたつの しょうひんを くらべます。
+→ Tôi so sánh hai sản phẩm."},
+  {t:"Từ vựng",q:"「断る」 có nghĩa là gì?",r:"ことわる",a:["Từ chối","Mời","Đồng ý","Truyền đạt"],c:0,e:"忙しいので、誘いを断りました。
+いそがしいので、さそいを ことわりました。
+→ Vì bận nên tôi đã từ chối lời mời."},
+  {t:"Từ vựng",q:"「迷う」 có nghĩa là gì?",r:"まよう",a:["Bị lạc / phân vân","Quen thuộc","Quyết định","Gặp gỡ"],c:0,e:"道に迷ってしまいました。
+みちに まよってしまいました。
+→ Tôi đã bị lạc đường."},
+  {t:"Từ vựng",q:"「通う」 có nghĩa là gì?",r:"かよう",a:["Đi lại thường xuyên tới một nơi","Đi ngang qua một lần","Quay về quê","Đổi tàu"],c:0,e:"毎日電車で会社に通っています。
+まいにち でんしゃで かいしゃに かよっています。
+→ Mỗi ngày tôi đi tàu đến công ty."},
+  {t:"Từ vựng",q:"「調べる」 có nghĩa là gì?",r:"しらべる",a:["Tra cứu / kiểm tra","Luyện tập","Ghi nhớ","Thảo luận"],c:0,e:"分からない言葉を辞書で調べます。
+わからない ことばを じしょで しらべます。
+→ Tôi tra từ không hiểu bằng từ điển."},
+  {t:"Từ vựng",q:"「直す」 có nghĩa là gì?",r:"なおす",a:["Sửa / chỉnh lại","Phá bỏ","Làm bẩn","Giấu đi"],c:0,e:"間違いを直してください。
+まちがいを なおして ください。
+→ Hãy sửa lỗi sai."},
+  {t:"Từ vựng",q:"「似る」 có nghĩa là gì?",r:"にる",a:["Giống / giống nhau","Khác hẳn","Nhìn thấy","Nấu chín"],c:0,e:"妹は母に似ています。
+いもうとは ははに にています。
+→ Em gái tôi giống mẹ."},
+  {t:"Từ vựng",q:"「済む」 có nghĩa gần nhất là gì?",r:"すむ",a:["Xong / hoàn tất","Bắt đầu","Tiếp tục","Trì hoãn"],c:0,e:"仕事はもう済みました。
+しごとは もう すみました。
+→ Công việc đã xong rồi."},
+  {t:"Từ vựng",q:"「決して」 thường đi với dạng nào?",r:"けっして",a:["Phủ định","Mệnh lệnh","Quá khứ bắt buộc","So sánh"],c:0,e:"決して忘れません。
+けっして わすれません。
+→ Tôi tuyệt đối sẽ không quên."},
+  {t:"Từ vựng",q:"「確か」 có nghĩa phù hợp nhất là gì?",r:"たしか",a:["Nếu tôi nhớ không nhầm / chắc là","Hoàn toàn không","Ngay lập tức","Rất hiếm khi"],c:0,e:"確か、会議は3時からです。
+たしか、かいぎは さんじからです。
+→ Nếu tôi nhớ không nhầm, cuộc họp bắt đầu từ 3 giờ."},
+  {t:"Từ vựng",q:"「続ける」 có nghĩa là gì?",r:"つづける",a:["Tiếp tục làm","Kết thúc","Đợi chờ","Bắt đầu lại"],c:0,e:"毎日勉強を続けています。
+まいにち べんきょうを つづけています。
+→ Tôi tiếp tục học mỗi ngày."},
+  {t:"Từ vựng",q:"「間違える」 có nghĩa là gì?",r:"まちがえる",a:["Làm sai / nhầm","Ghi nhớ","Chọn đúng","Giải thích"],c:0,e:"電話番号を間違えました。
+でんわばんごうを まちがえました。
+→ Tôi đã nhầm số điện thoại."},
+  {t:"Từ vựng",q:"「変わる」 có nghĩa là gì?",r:"かわる",a:["Thay đổi","Thay thế ai đó","Trả lại","Khô đi"],c:0,e:"季節が変わりました。
+きせつが かわりました。
+→ Mùa đã thay đổi."},
+
+  // ===== KANJI =====
+  {t:"Kanji",q:"Cách đọc của 「経験」 là gì?",r:"Chọn hiragana đúng.",a:["けいけん","けんけい","けいげん","けんげん"],c:0,e:"経験があります。
+けいけんが あります。
+→ Tôi có kinh nghiệm."},
+  {t:"Kanji",q:"Cách đọc của 「準備」 là gì?",r:"Chọn hiragana đúng.",a:["じゅび","じゅんび","じゅんぴ","じゅうび"],c:1,e:"旅行の準備をします。
+りょこうの じゅんびを します。
+→ Tôi chuẩn bị cho chuyến đi."},
+  {t:"Kanji",q:"Cách đọc của 「確認」 là gì?",r:"Chọn hiragana đúng.",a:["かくにん","かくねん","かくじん","かっにん"],c:0,e:"もう一度確認してください。
+もういちど かくにんして ください。
+→ Hãy kiểm tra lại một lần nữa."},
+  {t:"Kanji",q:"「約束」 nghĩa là gì?",r:"やくそく",a:["Chuẩn bị","Kinh nghiệm","Lời hứa / cuộc hẹn","Thói quen"],c:2,e:"友達と約束があります。
+ともだちと やくそくが あります。
+→ Tôi có hẹn với bạn."},
+  {t:"Kanji",q:"Cách đọc của 「予定」 là gì?",r:"Chọn hiragana đúng.",a:["よてい","よたい","ようてい","よでい"],c:0,e:"明日の予定を確認します。
+あしたの よていを かくにんします。
+→ Tôi kiểm tra kế hoạch ngày mai."},
+  {t:"Kanji",q:"Cách đọc của 「連絡」 là gì?",r:"Chọn hiragana đúng.",a:["れんらく","れいらく","れんがく","れんろく"],c:0,e:"後で連絡します。
+あとで れんらくします。
+→ Tôi sẽ liên lạc sau."},
+  {t:"Kanji",q:"「説明」 nghĩa là gì?",r:"せつめい",a:["Giải thích","Liên lạc","Kinh nghiệm","Trạng thái"],c:0,e:"使い方を説明します。
+つかいかたを せつめいします。
+→ Tôi giải thích cách sử dụng."},
+  {t:"Kanji",q:"Cách đọc của 「注意」 là gì?",r:"Chọn hiragana đúng.",a:["ちゅうい","ちゅい","じゅうい","ちょうい"],c:0,e:"車に注意してください。
+くるまに ちゅういして ください。
+→ Hãy chú ý xe cộ."},
+  {t:"Kanji",q:"「必要」 nghĩa là gì?",r:"ひつよう",a:["Cần thiết","Nguy hiểm","Đặc biệt","Tự do"],c:0,e:"パスポートが必要です。
+ぱすぽーとが ひつようです。
+→ Cần hộ chiếu."},
+  {t:"Kanji",q:"Cách đọc của 「利用」 là gì?",r:"Chọn hiragana đúng.",a:["りよう","りゆう","りょよう","りょう"],c:0,e:"図書館を利用します。
+としょかんを りようします。
+→ Tôi sử dụng thư viện."},
+  {t:"Kanji",q:"Cách đọc của 「状態」 là gì?",r:"Chọn hiragana đúng.",a:["じょうたい","じょうだい","しょうたい","じょたい"],c:0,e:"機械の状態を確認します。
+きかいの じょうたいを かくにんします。
+→ Tôi kiểm tra tình trạng của máy."},
+  {t:"Kanji",q:"「原因」 nghĩa là gì?",r:"げんいん",a:["Nguyên nhân","Kết quả","Quan hệ","Trường hợp"],c:0,e:"事故の原因を調べます。
+じこの げんいんを しらべます。
+→ Tôi điều tra nguyên nhân tai nạn."},
+  {t:"Kanji",q:"Cách đọc của 「結果」 là gì?",r:"Chọn hiragana đúng.",a:["けっか","けつか","けっが","けか"],c:0,e:"試験の結果が出ました。
+しけんの けっかが でました。
+→ Đã có kết quả kỳ thi."},
+  {t:"Kanji",q:"「関係」 nghĩa là gì?",r:"かんけい",a:["Mối quan hệ / liên quan","Tình trạng","Hy vọng","Ý kiến"],c:0,e:"この問題とは関係ありません。
+この もんだいとは かんけいありません。
+→ Không liên quan đến vấn đề này."},
+  {t:"Kanji",q:"Cách đọc của 「場合」 là gì?",r:"Chọn hiragana đúng.",a:["ばあい","ばごう","はあい","ばい"],c:0,e:"雨の場合は中止です。
+あめの ばあいは ちゅうしです。
+→ Trường hợp mưa thì sẽ hủy."},
+  {t:"Kanji",q:"Cách đọc của 「最近」 là gì?",r:"Chọn hiragana đúng.",a:["さいきん","さいこん","せいきん","さいけん"],c:0,e:"最近忙しいです。
+さいきん いそがしいです。
+→ Gần đây tôi bận."},
+  {t:"Kanji",q:"「希望」 nghĩa là gì?",r:"きぼう",a:["Hy vọng / nguyện vọng","Ý kiến","Thói quen","Giao thông"],c:0,e:"希望の日を選んでください。
+きぼうの ひを えらんで ください。
+→ Hãy chọn ngày bạn mong muốn."},
+  {t:"Kanji",q:"Cách đọc của 「意見」 là gì?",r:"Chọn hiragana đúng.",a:["いけん","いげん","いかん","いきん"],c:0,e:"あなたの意見を聞かせてください。
+あなたの いけんを きかせて ください。
+→ Hãy cho tôi biết ý kiến của bạn."},
+  {t:"Kanji",q:"Cách đọc của 「交通」 là gì?",r:"Chọn hiragana đúng.",a:["こうつう","こうどう","こつう","こうとう"],c:0,e:"交通が便利な町です。
+こうつうが べんりな まちです。
+→ Đây là thành phố có giao thông thuận tiện."},
+  {t:"Kanji",q:"「習慣」 nghĩa là gì?",r:"しゅうかん",a:["Thói quen","Kế hoạch","Kinh nghiệm","Nguyên nhân"],c:0,e:"毎朝走るのが習慣です。
+まいあさ はしるのが しゅうかんです。
+→ Chạy mỗi sáng là thói quen của tôi."},
+
+  // ===== NGỮ PHÁP =====
+  {t:"Ngữ pháp",q:"日本で働く（　）、日本語を勉強しています。",r:"にほんで はたらく（　）、にほんごを べんきょうしています。",a:["ばかり","ために","てしまう","ことになる"],c:1,e:"～ために = để / vì mục đích…
+→ Tôi học tiếng Nhật để làm việc ở Nhật."},
+  {t:"Ngữ pháp",q:"財布を忘れて（　）。",r:"さいふを わすれて（　）。",a:["なりました","しまいました","ためです","ばかりです"],c:1,e:"～てしまう diễn tả việc lỡ làm hoặc cảm giác tiếc nuối.
+→ Tôi lỡ quên ví mất rồi."},
+  {t:"Ngữ pháp",q:"毎日練習して、漢字が読める（　）。",r:"まいにち れんしゅうして、かんじが よめる（　）。",a:["ようになりました","ばかりでした","ためでした","ことでした"],c:0,e:"～ようになる = trở nên có thể…
+→ Tôi đã có thể đọc Kanji."},
+  {t:"Ngữ pháp",q:"忘れない（　）、メモしてください。",r:"わすれない（　）、めもして ください。",a:["ために","ように","ばかり","ことになる"],c:1,e:"～ように = để sao cho…
+→ Hãy ghi chú lại để không quên."},
+  {t:"Ngữ pháp",q:"来月、大阪へ出張する（　）。",r:"らいげつ、おおさかへ しゅっちょうする（　）。",a:["ようにしました","ことになりました","ばかりでした","ためにしました"],c:1,e:"～ことになる = được quyết định là…
+→ Đã có quyết định rằng tháng sau tôi sẽ đi công tác Osaka."},
+  {t:"Ngữ pháp",q:"彼はゲーム（　）しています。",r:"かれは げーむ（　）しています。",a:["ように","ばかり","ために","ことになる"],c:1,e:"～ばかり = chỉ toàn…
+→ Anh ấy chỉ toàn chơi game."},
+  {t:"Ngữ pháp",q:"日本にいる（　）、京都へ行ってみたいです。",r:"にほんに いる（　）、きょうとへ いってみたいです。",a:["うちに","たびに","しか","ほど"],c:0,e:"～うちに = trong lúc / trước khi trạng thái thay đổi.
+→ Trong lúc còn ở Nhật, tôi muốn thử đi Kyoto."},
+  {t:"Ngữ pháp",q:"この写真を見る（　）、高校時代を思い出します。",r:"この しゃしんを みる（　）、こうこうじだいを おもいだします。",a:["たびに","せいで","ほど","まま"],c:0,e:"～たびに = mỗi khi / mỗi lần.
+→ Mỗi lần xem bức ảnh này, tôi lại nhớ thời cấp ba."},
+  {t:"Ngữ pháp",q:"健康のために、毎日歩く（　）しています。",r:"けんこうの ために、まいにち あるく（　）しています。",a:["ように","ことに","わけに","ところに"],c:0,e:"～ようにする = cố gắng tạo thói quen làm gì.
+→ Vì sức khỏe, tôi cố gắng đi bộ mỗi ngày."},
+  {t:"Ngữ pháp",q:"明日から甘い物を食べない（　）。",r:"あしたから あまいものを たべない（　）。",a:["ことにしました","ようになりました","ことになりました","ところでした"],c:0,e:"～ことにする = tự mình quyết định làm/không làm gì.
+→ Tôi quyết định từ ngày mai sẽ không ăn đồ ngọt."},
+  {t:"Ngữ pháp",q:"この店は安いですが、いつも安い（　）。",r:"この みせは やすいですが、いつも やすい（　）。",a:["わけではありません","にちがいありません","しかありません","ことになります"],c:0,e:"～わけではない = không hẳn là / không phải lúc nào cũng.
+→ Cửa hàng này rẻ, nhưng không phải lúc nào cũng rẻ."},
+  {t:"Ngữ pháp",q:"電車が止まったので、タクシーで行く（　）。",r:"でんしゃが とまったので、たくしーで いく（　）。",a:["しかありません","ことはありません","ようになりました","ばかりです"],c:0,e:"～しかない = không còn cách nào khác ngoài…
+→ Tàu dừng nên chỉ còn cách đi taxi."},
+  {t:"Ngữ pháp",q:"そんなに心配する（　）。",r:"そんなに しんぱいする（　）。",a:["ことはありません","しかありません","ことになりました","ところです"],c:0,e:"～ことはない = không cần phải…
+→ Không cần lo lắng đến vậy."},
+  {t:"Ngữ pháp",q:"旅行の前にホテルを予約して（　）。",r:"りょこうの まえに ほてるを よやくして（　）。",a:["おきます","みます","あります","いきます"],c:0,e:"～ておく = làm trước để chuẩn bị.
+→ Tôi đặt khách sạn trước chuyến đi."},
+  {t:"Ngữ pháp",q:"音楽を聞き（　）、勉強します。",r:"おんがくを きき（　）、べんきょうします。",a:["ながら","うちに","ために","そうに"],c:0,e:"～ながら = vừa… vừa…
+→ Tôi vừa nghe nhạc vừa học."},
+  {t:"Ngữ pháp",q:"友達が手伝ってくれた（　）、早く終わりました。",r:"ともだちが てつだってくれた（　）、はやく おわりました。",a:["おかげで","せいで","わけで","たびに"],c:0,e:"～おかげで = nhờ vào (kết quả tích cực).
+→ Nhờ bạn giúp nên tôi xong sớm."},
+  {t:"Ngữ pháp",q:"雨の（　）、試合が中止になりました。",r:"あめの（　）、しあいが ちゅうしに なりました。",a:["せいで","おかげで","うちに","ための"],c:0,e:"～せいで = tại / vì (kết quả tiêu cực).
+→ Vì mưa nên trận đấu bị hủy."},
+  {t:"Ngữ pháp",q:"ニュースによると、明日は雪が降る（　）。",r:"にゅーすに よると、あしたは ゆきが ふる（　）。",a:["そうです","ようにします","ところです","ばかりです"],c:0,e:"～そうだ (truyền đạt) = nghe nói rằng…
+→ Theo tin tức, nghe nói ngày mai sẽ có tuyết."},
+  {t:"Ngữ pháp",q:"空が暗いです。雨が降り（　）。",r:"そらが くらいです。あめが ふり（　）。",a:["そうです","らしいです","ことです","ためです"],c:0,e:"～そうだ (vẻ ngoài) = trông có vẻ sắp…
+→ Trời tối, có vẻ sắp mưa."},
+  {t:"Ngữ pháp",q:"田中さんは今日は休みです。病気（　）。",r:"たなかさんは きょうは やすみです。びょうき（　）。",a:["らしいです","ながらです","ばかりです","しかないです"],c:0,e:"～らしい = nghe nói / có vẻ theo thông tin có được.
+→ Hôm nay anh Tanaka nghỉ. Nghe nói là bị ốm."}
+];
+
+</script>
+  <script>
+(function(){
+  "use strict";
+
+  var bank = window.N3_QUESTION_BANK || [];
+  var STORAGE_KEY = "n3QuestProgressV3";
+  var LEGACY_KEY = "n3QuestProgressV2";
+  var THEME_KEY = "n3QuestTheme";
+  var mode = "mixed";
+  var countSetting = "10";
+  var qs = [];
+  var pos = 0;
+  var score = 0;
+  var streak = 0;
+  var maxStreak = 0;
+  var correct = 0;
+  var answered = false;
+  var wrongAnswers = [];
+  var sessionAttempts = [];
+  var currentOptions = [];
+  var unlockedThisRound = [];
+  var toastTimer = null;
+
+  var achievements = [
+    {id:"first",icon:"🌱",name:"Khởi đầu",desc:"Hoàn thành 1 vòng học"},
+    {id:"accurate",icon:"🎯",name:"Chuẩn xác",desc:"Đạt ít nhất 80%"},
+    {id:"combo5",icon:"🔥",name:"Combo 5",desc:"Đúng liên tiếp 5 câu"},
+    {id:"fifty",icon:"🏅",name:"50 câu đúng",desc:"Tích lũy 50 câu đúng"},
+    {id:"hundred",icon:"💯",name:"100 câu",desc:"Hoàn thành 100 câu"},
+    {id:"streak3",icon:"📅",name:"3 ngày",desc:"Học liên tiếp 3 ngày"},
+    {id:"perfect",icon:"👑",name:"Hoàn hảo",desc:"Đạt 100% trong vòng ≥ 10 câu"}
+  ];
+
+  function el(id){return document.getElementById(id);}
+  function shuffle(arr,rand){
+    var a=arr.slice(),i,j,tmp,r=rand||Math.random;
+    for(i=a.length-1;i>0;i--){j=Math.floor(r()*(i+1));tmp=a[i];a[i]=a[j];a[j]=tmp;}
+    return a;
+  }
+  function hashString(str){
+    var h=2166136261,i;
+    for(i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}
+    return (h>>>0).toString(36);
+  }
+  function qid(q){return "q_"+hashString(q.t+"|"+q.q);}
+  function todayKey(date){
+    var d=date||new Date();
+    return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  }
+  function seededRandom(seedText){
+    var seed=parseInt(hashString(seedText),36)||1;
+    return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296;};
+  }
+  function dayDiff(a,b){
+    var aa=new Date(a+"T00:00:00"),bb=new Date(b+"T00:00:00");
+    return Math.round((bb-aa)/86400000);
+  }
+  function defaultProgress(){
+    return {xp:0,best:0,totalAnswered:0,totalCorrect:0,dayStreak:0,lastPlayed:"",completedRounds:0,achievements:[],questionStats:{},saved:[]};
+  }
+  function loadProgress(){
+    var p=defaultProgress(),raw=null;
+    try{
+      raw=localStorage.getItem(STORAGE_KEY);
+      if(raw){return Object.assign(p,JSON.parse(raw));}
+      raw=localStorage.getItem(LEGACY_KEY);
+      if(raw){return Object.assign(p,JSON.parse(raw));}
+    }catch(e){}
+    return p;
+  }
+  function saveProgress(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));}catch(e){}}
+  var progress=loadProgress();
+  if(!progress.questionStats){progress.questionStats={};}
+  if(!Array.isArray(progress.saved)){progress.saved=[];}
+  if(!Array.isArray(progress.achievements)){progress.achievements=[];}
+
+  function categoryForMode(value){
+    if(value==="vocab"){return "Từ vựng";}
+    if(value==="kanji"){return "Kanji";}
+    if(value==="grammar"){return "Ngữ pháp";}
+    return null;
+  }
+  function weakPool(){
+    return bank.filter(function(q){
+      var s=progress.questionStats[qid(q)];
+      return s&&s.seen>=1&&((s.correct/s.seen)<0.7||s.lastWrong);
+    }).sort(function(a,b){
+      var sa=progress.questionStats[qid(a)]||{seen:0,correct:0,lastWrong:false};
+      var sb=progress.questionStats[qid(b)]||{seen:0,correct:0,lastWrong:false};
+      var ra=sa.seen?sa.correct/sa.seen:1,rb=sb.seen?sb.correct/sb.seen:1;
+      if(sa.lastWrong!==sb.lastWrong){return sa.lastWrong?-1:1;}
+      return ra-rb;
+    });
+  }
+  function savedPool(){
+    var set=new Set(progress.saved);
+    return bank.filter(function(q){return set.has(qid(q));});
+  }
+  function poolForMode(value){
+    if(value==="weak"){return weakPool();}
+    if(value==="saved"){return savedPool();}
+    var cat=categoryForMode(value);
+    return cat?bank.filter(function(q){return q.t===cat;}):bank.slice();
+  }
+  function targetCount(poolLength){
+    if(countSetting==="all"){return poolLength;}
+    return Math.min(parseInt(countSetting,10)||10,poolLength);
+  }
+  function balancedQuestions(pool,count,rand){
+    if(mode!=="mixed" || count>=pool.length){return shuffle(pool,rand).slice(0,count);}
+    var cats=["Từ vựng","Kanji","Ngữ pháp"];
+    var buckets=cats.map(function(cat){return shuffle(pool.filter(function(q){return q.t===cat;}),rand);});
+    var out=[],i=0;
+    while(out.length<count){
+      var bucket=buckets[i%3];
+      if(bucket.length){out.push(bucket.shift());}
+      i++;
+      if(i>count*10){break;}
+    }
+    return shuffle(out,rand);
+  }
+  function dailyQuestions(){
+    var rand=seededRandom(todayKey()+"|n3quest");
+    var byCat={"Từ vựng":[],"Kanji":[],"Ngữ pháp":[]};
+    bank.forEach(function(q){if(byCat[q.t]){byCat[q.t].push(q);}});
+    Object.keys(byCat).forEach(function(k){byCat[k]=shuffle(byCat[k],rand);});
+    var out=[];
+    out=out.concat(byCat["Từ vựng"].slice(0,4));
+    out=out.concat(byCat["Kanji"].slice(0,3));
+    out=out.concat(byCat["Ngữ pháp"].slice(0,3));
+    return shuffle(out,rand);
+  }
+
+  function levelInfo(xp){
+    return {level:Math.floor(xp/100)+1,into:xp%100,need:100};
+  }
+  function updateProfile(){
+    var li=levelInfo(progress.xp);
+    var acc=progress.totalAnswered?Math.round(progress.totalCorrect/progress.totalAnswered*100):0;
+    el("levelStat").textContent=li.level;
+    el("levelDetail").textContent="Level "+li.level;
+    el("xpText").textContent=li.into+" / "+li.need+" XP";
+    el("xpCompact").textContent=li.into+" / "+li.need+" XP";
+    el("xpBar").style.width=Math.round(li.into/li.need*100)+"%";
+    el("dayStreakStat").textContent=progress.dayStreak+" 🔥";
+    el("lifetimeAccuracy").textContent=acc+"%";
+    el("lifetimeCount").textContent=progress.totalAnswered;
+    var weak=weakPool().length,saved=savedPool().length;
+    el("weakModeText").textContent=weak?weak+" câu cần ôn":"Chưa có câu yếu";
+    el("savedModeText").textContent=saved?saved+" câu đã lưu":"Chưa lưu câu nào";
+    el("weakModeBtn").classList.toggle("disabled",weak===0);
+    el("savedModeBtn").classList.toggle("disabled",saved===0);
+  }
+  function renderAchievements(){
+    var box=el("achievementStrip");box.innerHTML="";
+    achievements.forEach(function(a){
+      var unlocked=progress.achievements.indexOf(a.id)>=0;
+      var item=document.createElement("div");
+      item.className="achievement-chip"+(unlocked?"":" locked");
+      item.title=a.desc;
+      item.innerHTML="<span>"+a.icon+"</span><strong>"+a.name+"</strong>";
+      box.appendChild(item);
+    });
+  }
+  function updateHomeCount(){
+    var pool=poolForMode(mode);
+    el("bankCount").textContent=pool.length+" câu";
+    var count=targetCount(pool.length);
+    if(pool.length===0){
+      el("startBtn").disabled=true;
+      el("startHint").textContent=mode==="weak"?"Hãy làm vài vòng trước; các câu bạn hay sai sẽ tự xuất hiện ở đây.":"Hãy bấm ☆ trong lúc học để lưu câu muốn ôn lại.";
+    }else{
+      el("startBtn").disabled=false;
+      el("startHint").textContent=count+" câu · đáp án đảo vị trí mỗi lần · khoảng "+Math.max(2,Math.round(count*.55))+" phút";
+    }
+  }
+  function showScreen(name){
+    el("homeScreen").classList.toggle("hide",name!=="home");
+    el("quizScreen").classList.toggle("hide",name!=="quiz");
+    el("resultScreen").classList.toggle("hide",name!=="result");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+  function startRound(customQuestions,opts){
+    opts=opts||{};
+    var pool=customQuestions?customQuestions.slice():poolForMode(mode);
+    var count=customQuestions?pool.length:targetCount(pool.length);
+    var rand=opts.daily?seededRandom(todayKey()+"|round"):Math.random;
+    qs=opts.daily?dailyQuestions():balancedQuestions(pool,count,rand);
+    pos=0;score=0;streak=0;maxStreak=0;correct=0;answered=false;wrongAnswers=[];sessionAttempts=[];unlockedThisRound=[];
+    showScreen("quiz");
+    renderQuestion();
+  }
+  function makeOptions(q){
+    return shuffle(q.a.map(function(text,index){return {text:text,correct:index===q.c,originalIndex:index};}));
+  }
+  function usefulReading(q){return q.r && q.r!=="Chọn hiragana đúng.";}
+  function exampleJapanese(q){
+    if(!q.e){return "";}
+    var first=String(q.e).split("
+")[0].trim();
+    return /[ぁ-んァ-ン一-龯]/.test(first)?first:"";
+  }
+  function renderQuestion(){
+    var q=qs[pos];
+    if(!q){goHome();return;}
+    answered=false;
+    currentOptions=makeOptions(q);
+    el("typeTag").textContent=q.t;
+    el("counter").textContent=(pos+1)+"/"+qs.length;
+    el("question").textContent=q.q;
+    el("reading").textContent=q.r||"";
+    el("reading").className="reading hide";
+    el("hintBtn").classList.toggle("hide",!usefulReading(q));
+    el("hintBtn").textContent="あ Hiragana";
+    var example=exampleJapanese(q);
+    el("speakBtn").disabled=!example || !("speechSynthesis" in window);
+    el("feedback").className="feedback hide";
+    el("feedback").innerHTML="";
+    el("nextBtn").disabled=true;
+    el("nextBtn").textContent=pos===qs.length-1?"Xem kết quả":"Câu tiếp theo";
+    el("saveBtn").textContent=progress.saved.indexOf(qid(q))>=0?"★":"☆";
+    el("saveBtn").setAttribute("aria-label",progress.saved.indexOf(qid(q))>=0?"Bỏ lưu câu hỏi":"Lưu câu hỏi");
+    var answers=el("answers");answers.innerHTML="";
+    currentOptions.forEach(function(opt,index){
+      var b=document.createElement("button");
+      b.type="button";b.className="answer";b.dataset.index=String(index);
+      b.innerHTML="<span class='letter'>"+String.fromCharCode(65+index)+"</span>"+escapeHtml(opt.text);
+      b.addEventListener("click",choose,false);
+      answers.appendChild(b);
+    });
+    updateSessionStats();
+  }
+  function updateSessionStats(){
+    var done=pos+(answered?1:0);
+    var acc=done?Math.round(correct/done*100):0;
+    el("score").textContent=score;
+    el("streak").textContent=streak+" 🔥";
+    el("accuracy").textContent=acc+"%";
+    el("bar").style.width=(qs.length?done/qs.length*100:0)+"%";
+  }
+  function updateQuestionStats(q,isCorrect){
+    var id=qid(q),s=progress.questionStats[id]||{seen:0,correct:0,lastWrong:false};
+    s.seen+=1;if(isCorrect){s.correct+=1;}s.lastWrong=!isCorrect;s.lastSeen=todayKey();
+    progress.questionStats[id]=s;
+  }
+  function choose(evt){
+    if(answered){return;}
+    answered=true;
+    var selected=parseInt(evt.currentTarget.dataset.index,10);
+    var opt=currentOptions[selected];
+    var q=qs[pos];
+    var isCorrect=!!opt.correct;
+    var buttons=el("answers").querySelectorAll("button");
+    buttons.forEach(function(b,i){
+      b.disabled=true;
+      if(currentOptions[i].correct){b.classList.add("correct");}
+      else if(i!==selected){b.classList.add("dimmed");}
+    });
+    if(isCorrect){
+      streak++;correct++;maxStreak=Math.max(maxStreak,streak);
+      var gained=10+Math.min(streak-1,5)*2;
+      score+=gained;
+      showFeedback(true,"Chính xác! +"+gained+" điểm",q.e);
+    }else{
+      streak=0;evt.currentTarget.classList.add("wrong");
+      wrongAnswers.push({q:q,selectedText:opt.text});
+      showFeedback(false,"Chưa đúng · đáp án: "+q.a[q.c],q.e);
+    }
+    sessionAttempts.push({type:q.t,correct:isCorrect});
+    updateQuestionStats(q,isCorrect);
+    saveProgress();
+    el("nextBtn").disabled=false;
+    updateSessionStats();
+    setTimeout(function(){el("feedback").scrollIntoView({behavior:"smooth",block:"nearest"});},80);
+  }
+  function showFeedback(ok,title,explanation){
+    var box=el("feedback");
+    box.className="feedback "+(ok?"ok":"no");
+    box.innerHTML="<span class='feedback-title'>"+(ok?"✅ ":"❌ ")+escapeHtml(title)+"</span><div class='explanation'>"+escapeHtml(explanation||"")+"</div>";
+  }
+  function nextQuestion(){
+    if(!answered){return;}
+    if(pos>=qs.length-1){finishRound();return;}
+    pos++;renderQuestion();window.scrollTo({top:0,behavior:"smooth"});
+  }
+  function unlock(id){if(progress.achievements.indexOf(id)<0){progress.achievements.push(id);unlockedThisRound.push(id);}}
+  function updateDailyStreak(){
+    var today=todayKey();
+    if(progress.lastPlayed===today){return;}
+    if(!progress.lastPlayed){progress.dayStreak=1;}
+    else if(dayDiff(progress.lastPlayed,today)===1){progress.dayStreak+=1;}
+    else{progress.dayStreak=1;}
+    progress.lastPlayed=today;
+  }
+  function finishRound(){
+    var total=qs.length,acc=total?Math.round(correct/total*100):0;
+    var xpGain=Math.max(5,Math.round(score*.6));
+    progress.xp+=xpGain;
+    progress.best=Math.max(progress.best,score);
+    progress.totalAnswered+=total;
+    progress.totalCorrect+=correct;
+    progress.completedRounds+=1;
+    updateDailyStreak();
+    unlock("first");if(acc>=80){unlock("accurate");}if(maxStreak>=5){unlock("combo5");}
+    if(progress.totalCorrect>=50){unlock("fifty");}if(progress.totalAnswered>=100){unlock("hundred");}
+    if(progress.dayStreak>=3){unlock("streak3");}if(acc===100&&total>=10){unlock("perfect");}
+    saveProgress();updateProfile();renderAchievements();
+
+    el("finalScore").textContent=score;
+    el("finalAccuracy").textContent=acc+"%";
+    el("finalCombo").textContent=maxStreak;
+    el("xpGained").textContent="+"+xpGain;
+    if(acc>=90){el("resultIcon").textContent="🏆";el("resultTitle").textContent="Xuất sắc";el("finalMsg").textContent="Bạn đã nắm khá chắc vòng này. Hãy đổi dạng câu hoặc tăng số lượng để tiếp tục.";}
+    else if(acc>=70){el("resultIcon").textContent="🎯";el("resultTitle").textContent="Kết quả tốt";el("finalMsg").textContent="Nhịp học ổn. Ôn lại các câu sai sẽ hiệu quả hơn làm lại cả vòng.";}
+    else if(acc>=50){el("resultIcon").textContent="📚";el("resultTitle").textContent="Đang tiến bộ";el("finalMsg").textContent="Tập trung vào mục Câu yếu; game sẽ ưu tiên những điểm bạn chưa chắc.";}
+    else{el("resultIcon").textContent="🧠";el("resultTitle").textContent="Nên ôn lại";el("finalMsg").textContent="Đừng làm vòng mới ngay. Hãy luyện lại câu sai trước để ghi nhớ tốt hơn.";}
+    renderBreakdown();renderWrongAnswers();renderNewAchievements();showScreen("result");
+  }
+  function renderBreakdown(){
+    var cats=["Từ vựng","Kanji","Ngữ pháp"],box=el("breakdownList");box.innerHTML="";
+    cats.forEach(function(cat){
+      var arr=sessionAttempts.filter(function(a){return a.type===cat;});
+      if(!arr.length){return;}
+      var ok=arr.filter(function(a){return a.correct;}).length,pct=Math.round(ok/arr.length*100);
+      var row=document.createElement("div");row.className="breakdown-row";
+      row.innerHTML="<span>"+cat+"</span><div class='breakdown-bar'><i style='width:"+pct+"%'></i></div><strong>"+pct+"%</strong>";
+      box.appendChild(row);
+    });
+    el("breakdownBox").classList.toggle("hide",box.children.length===0);
+  }
+  function renderWrongAnswers(){
+    var box=el("reviewBox"),list=el("wrongList");list.innerHTML="";
+    if(!wrongAnswers.length){box.classList.add("hide");el("retryWrongBtn").classList.add("hide");return;}
+    box.classList.remove("hide");el("retryWrongBtn").classList.remove("hide");el("wrongCount").textContent=wrongAnswers.length+" câu";
+    wrongAnswers.forEach(function(item){
+      var q=item.q,div=document.createElement("div");div.className="wrong-item";
+      div.innerHTML="<strong>"+escapeHtml(q.q)+"</strong>"+
+        (usefulReading(q)?"<div class='reading-line'>"+escapeHtml(q.r)+"</div>":"")+
+        "<div class='your-line'>Bạn chọn: "+escapeHtml(item.selectedText)+"</div>"+
+        "<div class='correct-line'>✓ "+escapeHtml(q.a[q.c])+"</div>"+
+        "<div class='explain'>"+escapeHtml(q.e||"")+"</div>";
+      list.appendChild(div);
+    });
+  }
+  function renderNewAchievements(){
+    var box=el("newAchievements");box.innerHTML="";
+    if(!unlockedThisRound.length){box.classList.add("hide");return;}
+    box.classList.remove("hide");
+    var title=document.createElement("strong");title.textContent="🎉 Thành tích mới";box.appendChild(title);
+    unlockedThisRound.forEach(function(id){var a=achievements.find(function(x){return x.id===id;});if(!a){return;}var row=document.createElement("div");row.className="new-achievement";row.textContent=a.icon+" "+a.name+" — "+a.desc;box.appendChild(row);});
+  }
+  function escapeHtml(text){return String(text).replace(/[&<>'"]/g,function(ch){return {"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[ch];});}
+  function goHome(){showScreen("home");updateProfile();updateHomeCount();}
+  function setTheme(theme){
+    document.documentElement.dataset.theme=theme;el("themeBtn").textContent=theme==="dark"?"☀️":"🌙";
+    try{localStorage.setItem(THEME_KEY,theme);}catch(e){}
+  }
+  function initTheme(){var saved="";try{saved=localStorage.getItem(THEME_KEY)||"";}catch(e){}if(!saved){saved=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}setTheme(saved);}
+  function toast(text){
+    clearTimeout(toastTimer);var t=el("toast");t.textContent=text;t.classList.remove("hide");
+    toastTimer=setTimeout(function(){t.classList.add("hide");},1500);
+  }
+  function toggleSave(){
+    var q=qs[pos],id=qid(q),idx=progress.saved.indexOf(id);
+    if(idx>=0){progress.saved.splice(idx,1);el("saveBtn").textContent="☆";toast("Đã bỏ khỏi danh sách lưu");}
+    else{progress.saved.push(id);el("saveBtn").textContent="★";toast("Đã lưu để ôn lại");}
+    saveProgress();updateProfile();
+  }
+  function speakExample(){
+    var q=qs[pos],text=exampleJapanese(q);if(!text||!("speechSynthesis" in window)){return;}
+    window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang="ja-JP";u.rate=.85;window.speechSynthesis.speak(u);
+  }
+  function selectMode(card){
+    var requested=card.dataset.mode,pool=poolForMode(requested);
+    if((requested==="weak"||requested==="saved")&&pool.length===0){toast(requested==="weak"?"Chưa có câu yếu — hãy học vài vòng trước":"Chưa có câu đã lưu");return;}
+    mode=requested;document.querySelectorAll(".mode-card").forEach(function(x){x.classList.toggle("selected",x===card);});updateHomeCount();
+  }
+
+  var warning=el("jsWarning");if(warning){warning.style.display="none";}
+  el("modeGrid").addEventListener("click",function(evt){var card=evt.target.closest(".mode-card");if(card){selectMode(card);}});
+  el("countGroup").addEventListener("click",function(evt){var b=evt.target.closest("button");if(!b){return;}countSetting=b.dataset.count;el("countGroup").querySelectorAll("button").forEach(function(x){x.classList.toggle("selected",x===b);});updateHomeCount();});
+  el("startBtn").addEventListener("click",function(){startRound();});
+  el("dailyBtn").addEventListener("click",function(){mode="mixed";startRound(null,{daily:true});});
+  el("nextBtn").addEventListener("click",nextQuestion);
+  el("hintBtn").addEventListener("click",function(){var r=el("reading"),hidden=r.classList.toggle("hide");el("hintBtn").textContent=hidden?"あ Hiragana":"🙈 Ẩn hiragana";});
+  el("speakBtn").addEventListener("click",speakExample);
+  el("saveBtn").addEventListener("click",toggleSave);
+  el("quitBtn").addEventListener("click",function(){if(answered||pos>0){if(!window.confirm("Thoát vòng học hiện tại? Tiến độ vòng này sẽ không được cộng vào thống kê tổng.")){return;}}goHome();});
+  el("homeBtn").addEventListener("click",goHome);
+  el("playAgainBtn").addEventListener("click",function(){startRound();});
+  el("retryWrongBtn").addEventListener("click",function(){var retry=wrongAnswers.map(function(item){return item.q;});startRound(retry);});
+  el("themeBtn").addEventListener("click",function(){setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark");});
+
+  initTheme();updateProfile();renderAchievements();updateHomeCount();showScreen("home");
+})();
+
+</script>
+</body>
+</html>
